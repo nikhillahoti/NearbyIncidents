@@ -11,10 +11,11 @@ class LandingHome extends Component {
     }
 
     render(){
-        const sample = "Sample Text";
+        const sample = "SOS";
         return (
             <View>
                 <Text>{sample}</Text>
+                <Text>{"Chat"}</Text>
             </View>
         );
     }

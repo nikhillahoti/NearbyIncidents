@@ -4,6 +4,7 @@ import {
     Text
 } from 'react-native'
 
+
 import { TabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -38,18 +39,18 @@ const HomeScreenTabNavigator = new TabNavigator({
     ScreenSOS: {
         screen: SOS,
         navigationOptions: {
-            tabBarLabel: 'SOS',
+            tabBarLabel: 'List View',
             tabBarIcon: () => (
-                <Ionicons name="md-compass" size={24} />
+                <Ionicons name="ios-list" size={24} />
             )
         }
     },
     ScreenChat: {
         screen: Chat,
         navigationOptions: {
-            tabBarLabel: 'Chat',
+            tabBarLabel: 'Map View',
             tabBarIcon: () => (
-                <Ionicons name="md-compass" size={24} />
+                <Ionicons name="md-map" size={24} />
             )
         }
     }

@@ -1,8 +1,11 @@
+'use strict';
 
 import React, {Component} from 'react';
 import { StackNavigator } from 'react-navigation'
 
 import Landing from './app/Landing';
+
+import * as firebase from 'firebase';
 
 export default class App extends Component {
   render() {

@@ -5,6 +5,7 @@ import {
     StackNavigator
 } from 'react-navigation';
 import LandingHome from './Components/LandingHome';
+import Chat from './Components/TabNavigator/Chat';
 
 import HomeScreenTabNavigator from './Components/HomeScreenTabNavigator';
 
@@ -14,9 +15,18 @@ const InnerStackNavigator = new StackNavigator({
     }
 });
 
+const ChatStackNavigator = new StackNavigator({
+    Chat: {
+        screen: Chat
+    }
+});
+
 const AppDrawerNavigator = new DrawerNavigator({
-    LandingHome: {
+    Home: {
         screen: InnerStackNavigator
+    },
+    Chat: {
+        screen: ChatStackNavigator
     }
 });
 
