@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {
     View,
-    Text
+    Text,
+    StyleSheet
 } from 'react-native'
 
 
@@ -15,6 +16,7 @@ class AppTabNavigator extends Component {
     
     static navigationOptions = ({navigation}) => {
         return {
+            headerTitle: <Text style={styles.headerTitle}>Nearby Incidents</Text>,
             headerLeft: (
                 <View style={{padding: 10}}>
                     <Ionicons name="md-menu" 
@@ -33,8 +35,9 @@ class AppTabNavigator extends Component {
     }
 }
 
-// Children of HomeScreenTabNavigator will not have access to the navigation prop. So we access it using ScreenProps
-
+// Children of HomeScreenTabNavigator will not have access to the navigation prop. 
+// So we pass a ScreenProps giving the reference to the navigation object 
+// and access it using ScreenProps
 const HomeScreenTabNavigator = new TabNavigator({
     ScreenSOS: {
         screen: SOS,
@@ -55,5 +58,13 @@ const HomeScreenTabNavigator = new TabNavigator({
         }
     }
 })
+
+const styles = StyleSheet.create({
+    headerTitle: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: '#5c5cd6'
+    }
+});
 
 export default AppTabNavigator;
