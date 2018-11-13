@@ -15,12 +15,20 @@ import SOS from './TabNavigator/SOS';
 import Chat from './TabNavigator/Chat';
 import FilterModal from './Filter/FilterModal';
 
+import firebase from './../helper/FirebaseConnection';
+
 class AppTabNavigator extends Component {
     
+    constructor(props){
+        super(props);
+        this.getEventsFromFirebase();
+    }
+
     // The data for the events goes here and yet to be added
     // This state is responsible for handling the showing of the modal as the filter button is on this screen
     state = {
-        modalVisible: false
+        modalVisible: false,
+        incidentItems: []
     }
 
     // navigationOptions are responsible for displaying the top right corner filter icon,
@@ -55,8 +63,20 @@ class AppTabNavigator extends Component {
     componentDidMount(){
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
     }
+
+    getEventsFromFirebase = () => {
+        const root_ref_db = firebase.database().ref();
+        const events = root_ref_db.child('events');
+
+        events.on('value', (snap) =>  {
+            snap.forEach((child) => {
+                console.log(child.val().type);
+            });
+        });
+    }
     
     render(){
+        
         return(
             <View style={styles.container}>
                 <HomeScreenTabNavigator screenProps={{ navigation: this.props.navigation }} />
