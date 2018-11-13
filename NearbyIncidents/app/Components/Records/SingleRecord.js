@@ -18,7 +18,7 @@ class SingleRecord extends Component {
                 </View>
                 <View style={styles.imageContainer}>
                     <FontAwesome 
-                        size={24}
+                        size={48}
                         name="rss"
                         color='#5c5cd6'
                     />
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
         textAlign: 'right',
+        marginTop: 20,
         marginBottom: 10,
         paddingRight: 10
     },

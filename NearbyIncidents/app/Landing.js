@@ -5,7 +5,8 @@ import {
     StackNavigator
 } from 'react-navigation';
 import LandingHome from './Components/LandingHome';
-import Chat from './Components/TabNavigator/Chat';
+import Chat from './Components/DrawerComponents/Chat';
+import SOS from './Components/DrawerComponents/SOS';
 
 import HomeScreenTabNavigator from './Components/HomeScreenTabNavigator';
 
@@ -16,10 +17,16 @@ const InnerStackNavigator = new StackNavigator({
 });
 
 const ChatStackNavigator = new StackNavigator({
-    Chat: {
+    ScreenChat: {
         screen: Chat
     }
 });
+
+const SOSStackNavigator = new StackNavigator({
+    ScreenSOS: {
+        screen: SOS
+    }
+})
 
 const AppDrawerNavigator = new DrawerNavigator({
     Home: {
@@ -27,6 +34,9 @@ const AppDrawerNavigator = new DrawerNavigator({
     },
     Chat: {
         screen: ChatStackNavigator
+    },
+    SOS: {
+        screen: SOSStackNavigator
     }
 });
 

@@ -11,8 +11,8 @@ import { TabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-import SOS from './TabNavigator/SOS';
-import Chat from './TabNavigator/Chat';
+import ListView from './TabNavigator/ListView';
+import MapView from './TabNavigator/MapView';
 import FilterModal from './Filter/FilterModal';
 
 import firebase from './../helper/FirebaseConnection';
@@ -21,6 +21,7 @@ class AppTabNavigator extends Component {
     
     constructor(props){
         super(props);
+        // Fetch the data from Google Firebase before loading the Component
         this.getEventsFromFirebase();
     }
 
@@ -69,9 +70,12 @@ class AppTabNavigator extends Component {
         const events = root_ref_db.child('events');
 
         events.on('value', (snap) =>  {
+            let arrIncidents = [];
             snap.forEach((child) => {
                 console.log(child.val().type);
+                arrIncidents.push(child.val());
             });
+            this.setState({ incidentItems: arrIncidents});
         });
     }
     
@@ -79,7 +83,7 @@ class AppTabNavigator extends Component {
         
         return(
             <View style={styles.container}>
-                <HomeScreenTabNavigator screenProps={{ navigation: this.props.navigation }} />
+                <HomeScreenTabNavigator screenProps={{ navigation: this.props.navigation, events: this.state.incidentItems }} />
                 <FilterModal ToggleModal={this.ToggleModal} modalVisible={this.state.modalVisible}/>
             </View>
         );
@@ -90,9 +94,12 @@ class AppTabNavigator extends Component {
 // and access it using ScreenProps
 
 
+
+// This Screen is the entry point for the List View and the Map View Tabs.
+// This will store the list of incidents and those will be fetched from Firebase from here
 const HomeScreenTabNavigator = new TabNavigator({
-    ScreenSOS: {
-        screen: SOS,
+    ScreenListView: {
+        screen: ListView,
         navigationOptions: {
             tabBarLabel: 'List View',
             tabBarIcon: () => (
@@ -100,8 +107,8 @@ const HomeScreenTabNavigator = new TabNavigator({
             )
         }
     },
-    ScreenChat: {
-        screen: Chat,
+    ScreenMapView: {
+        screen: MapView,
         navigationOptions: {
             tabBarLabel: 'Map View',
             tabBarIcon: () => (
