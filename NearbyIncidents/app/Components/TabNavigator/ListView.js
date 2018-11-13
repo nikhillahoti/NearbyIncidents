@@ -7,20 +7,20 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import SingleRecord from './../Records/SingleRecord';
+import SingleRecord from './SingleRecordView';
 
 class ListView extends Component {
     render(){
         let RecordListt = this.props.screenProps.events.map((rec, i) => {
             return (<View key={i}>
-                        <TouchableOpacity onPress={() => console.log("Here" + key)}>
+                        <TouchableOpacity onPress={() => console.log("Here")}>
                             <SingleRecord record={rec} />
                         </TouchableOpacity>
                         <View style={styles.recView} />
                     </View>)
         });
         return (
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 {RecordListt}
             </ScrollView>
         );
@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
         margin: 10,
         marginTop: 30,
         justifyContent: 'center'
+    },
+    container: {
+        marginTop: 10
     }
 });
 

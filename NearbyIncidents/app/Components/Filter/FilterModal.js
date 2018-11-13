@@ -8,38 +8,65 @@ import {
     ScrollView
 } from 'react-native';
 import {
-    CheckBox
+    CheckBox,
+    Button
 } from 'react-native-elements';
 
 class FilterModal extends Component {
 
     state = {
         Category: [
-                    'Medical',
-                    'Fire',
-                    'Police',
-                    'Traffic',
-                    'Utility'
-                ],
+            { 
+                label: 'Medical',
+                visible: false
+            },
+            { 
+                label: 'Traffic',
+                visible: false
+            },
+            { 
+                label: 'Update',
+                visible: false
+            },
+            { 
+                label: 'Crime',
+                visible: false
+            },
+            { 
+                label: 'Utility',
+                visible: false
+            },
+        ],
         Distance: [
-                    'Current Location',
-                    'Specific Location'
-                ],
+            'Current Location',
+            'Specific Location'
+        ],
         RSSFeeds: [
-                    'Weather Alerts',
-                    'Crime',
-                    'Missing Person'
-                ]
+            'Weather Alerts',
+            'Crime',
+            'Missing Person'
+        ]
+    }
+    
+    checkMe = (index) => {
+        let lstCategory = this.state.Category;
+        lstCategory[index].visible = ! lstCategory[index].visible;
+
+        this.setState({
+            Category: lstCategory
+        });
     }
 
     render(){
         
         // Get the Checkbox list to display 
-        const checkBoxList = this.state.Category.map((title, index) => {
+        const checkBoxList = this.state.Category.map((option, index) => {
             return <CheckBox 
-                        title={title} 
+                        title={option.label}
+                        checked={option.visible} 
                         key={index}
                         size={20}
+                        onPress={() => this.checkMe(index)}
                         containerStyle={styles.checkboxContainer}
                     />
         });
@@ -62,6 +89,7 @@ class FilterModal extends Component {
                             {checkBoxList}
                         </View>
                     </View>
+                    <Button />
                 </View> 
             </Modal>
             

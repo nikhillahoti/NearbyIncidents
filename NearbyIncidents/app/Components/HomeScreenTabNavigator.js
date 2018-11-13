@@ -29,7 +29,10 @@ class AppTabNavigator extends Component {
     // This state is responsible for handling the showing of the modal as the filter button is on this screen
     state = {
         modalVisible: false,
-        incidentItems: []
+        incidentItems: [],
+        filter: {
+            category: []
+        }
     }
 
     // navigationOptions are responsible for displaying the top right corner filter icon,
@@ -65,6 +68,10 @@ class AppTabNavigator extends Component {
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
     }
 
+    applyFilter = (filter) => {
+
+    }
+
     getEventsFromFirebase = () => {
         const root_ref_db = firebase.database().ref();
         const events = root_ref_db.child('events');
@@ -72,7 +79,6 @@ class AppTabNavigator extends Component {
         events.on('value', (snap) =>  {
             let arrIncidents = [];
             snap.forEach((child) => {
-                console.log(child.val().type);
                 arrIncidents.push(child.val());
             });
             this.setState({ incidentItems: arrIncidents});

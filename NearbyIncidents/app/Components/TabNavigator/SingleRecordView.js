@@ -6,22 +6,22 @@ import {Text,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-class SingleRecord extends Component {
+class SingleRecordView extends Component {
 
     render(){
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.mainContentContainer}>
-                    <Text style={styles.sourceName}>{this.props.record.type}</Text>
-                    <Text style={styles.Content}>{this.props.record.description}</Text>
-                    <Text style={styles.timeFont}>{this.props.record.datetime}</Text>
-                </View>
                 <View style={styles.imageContainer}>
                     <FontAwesome 
                         size={48}
                         name="rss"
                         color='#5c5cd6'
                     />
+                </View>
+                <View style={styles.mainContentContainer}>
+                    <Text style={styles.sourceName}>{this.props.record.type}</Text>
+                    <Text style={styles.Content}>{this.props.record.description}</Text>
+                    <Text style={styles.timeFont}>{this.props.record.datetime}</Text>
                 </View>
             </View>
         );
@@ -34,17 +34,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     mainContentContainer: {
-        flex: 3,
+        flex: 7,
         flexDirection: 'column',
-        paddingLeft: 20,
-        paddingRight: 10
+        margin: 10
     },
     imageContainer: {
         flex: 1,
         textAlign: 'right',
-        marginTop: 20,
-        marginBottom: 10,
-        paddingRight: 10
+        margin: 20
     },
     sourceName: {
         fontSize: 12,
@@ -52,7 +49,7 @@ const styles = StyleSheet.create({
     },
     Content: {
         fontSize: 14,
-        fontWeight: 'bold',
+        color: 'black',
         marginTop: 3 
     },
     timeFont: {
@@ -62,4 +59,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SingleRecord;
+export default SingleRecordView;
