@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
         textAlign: 'right',
-        margin: 20
+        margin: 10
     },
     sourceName: {
         fontSize: 12,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     timeFont: {
         fontSize: 10,
-        marginTop: 20,
+        marginTop: 10,
         color: 'grey'
     }
 });

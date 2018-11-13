@@ -16,6 +16,7 @@ import MapView from './TabNavigator/MapView';
 import FilterModal from './Filter/FilterModal';
 
 import firebase from './../helper/FirebaseConnection';
+import _ from 'lodash';
 
 class AppTabNavigator extends Component {
     
@@ -30,9 +31,7 @@ class AppTabNavigator extends Component {
     state = {
         modalVisible: false,
         incidentItems: [],
-        filter: {
-            category: []
-        }
+        Category: []
     }
 
     // navigationOptions are responsible for displaying the top right corner filter icon,
@@ -68,19 +67,31 @@ class AppTabNavigator extends Component {
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
     }
 
-    applyFilter = (filter) => {
-
+    applyFilter = (newCategory) => {
+        //this.ToggleModal();
+        let Category = this.state.Category;
+        newCategory.map((category) => {
+            Category.push(category);
+        });
+        this.setState({Category: newCategory, modalVisible: !this.state.modalVisible});
+        this.getEventsFromFirebase();
     }
 
     getEventsFromFirebase = () => {
         const root_ref_db = firebase.database().ref();
-        const events = root_ref_db.child('events');
+        let events = root_ref_db.child('events');
+
+        this.state.Category.map((type) => {
+            console.log("This is the selected filter" + type);
+            events = events.orderByChild('type').equalTo(type + '');
+        });
 
         events.on('value', (snap) =>  {
             let arrIncidents = [];
             snap.forEach((child) => {
                 arrIncidents.push(child.val());
             });
+
             this.setState({ incidentItems: arrIncidents});
         });
     }
@@ -90,7 +101,7 @@ class AppTabNavigator extends Component {
         return(
             <View style={styles.container}>
                 <HomeScreenTabNavigator screenProps={{ navigation: this.props.navigation, events: this.state.incidentItems }} />
-                <FilterModal ToggleModal={this.ToggleModal} modalVisible={this.state.modalVisible}/>
+                <FilterModal ToggleModal={this.ToggleModal} modalVisible={this.state.modalVisible} applyFilter={this.applyFilter}/>
             </View>
         );
     }

@@ -20,7 +20,7 @@ class ListView extends Component {
                     </View>)
         });
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.containerScrollView}>
                 {RecordListt}
             </ScrollView>
         );
@@ -32,10 +32,9 @@ const styles = StyleSheet.create({
         borderBottomColor: 'darkgrey',
         borderBottomWidth: 1,
         margin: 10,
-        marginTop: 30,
         justifyContent: 'center'
     },
-    container: {
+    containerScrollView: {
         marginTop: 10
     }
 });

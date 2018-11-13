@@ -48,6 +48,16 @@ class FilterModal extends Component {
         ]
     }
     
+    applyFilterUpdate = () => {
+        let Category = [];
+        this.state.Category.map((option) => {
+            if (option.visible === true){
+                Category.push(option.label);
+            }
+        });
+        this.props.applyFilter(Category);
+    }
+
     checkMe = (index) => {
         let lstCategory = this.state.Category;
         lstCategory[index].visible = ! lstCategory[index].visible;
@@ -89,7 +99,10 @@ class FilterModal extends Component {
                             {checkBoxList}
                         </View>
                     </View>
-                    <Button />
+                    <Button 
+                        onPress={() => this.applyFilterUpdate()} 
+                        title="Apply"
+                    />
                 </View> 
             </Modal>
             
