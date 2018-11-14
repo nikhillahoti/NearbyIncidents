@@ -38,12 +38,12 @@ class AppTabNavigator extends Component {
     // top left corner icon for drawer and the header text 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <Text style={styles.headerTitle}>Nearby Incidents</Text>,
+            headerTitle: <Text style={styles.headerTitle}>NEARBY INCIDENTS</Text>,
             headerLeft: (
                 <View style={{padding: 10}}>
                     <Ionicons name="md-menu" 
                         size={24}
-                        color='#5c5cd6'
+                        color='black'
                         onPress={() => navigation.navigate('DrawerOpen')}
                     />
                 </View>
@@ -51,7 +51,7 @@ class AppTabNavigator extends Component {
             headerRight: <FontAwesome5 name="filter" 
                             size={18}
                             onPress={() => {navigation.state.params.handleFilter()}}
-                            color='#5c5cd6'
+                            color='black'
                             style={{padding: 10}}
                         />
         }
@@ -68,7 +68,6 @@ class AppTabNavigator extends Component {
     }
 
     applyFilter = (newCategory) => {
-        //this.ToggleModal();
         let Category = this.state.Category;
         newCategory.map((category) => {
             Category.push(category);
@@ -82,7 +81,6 @@ class AppTabNavigator extends Component {
         let events = root_ref_db.child('events');
 
         this.state.Category.map((type) => {
-            console.log("This is the selected filter" + type);
             events = events.orderByChild('type').equalTo(type + '');
         });
 
@@ -118,7 +116,7 @@ const HomeScreenTabNavigator = new TabNavigator({
     ScreenListView: {
         screen: ListView,
         navigationOptions: {
-            tabBarLabel: 'List View',
+            tabBarLabel: 'Incidents',
             tabBarIcon: () => (
                 <Ionicons name="ios-list" size={24} />
             )
@@ -127,7 +125,7 @@ const HomeScreenTabNavigator = new TabNavigator({
     ScreenMapView: {
         screen: MapView,
         navigationOptions: {
-            tabBarLabel: 'Map View',
+            tabBarLabel: 'Nearby',
             tabBarIcon: () => (
                 <Ionicons name="md-map" size={24} />
             )
@@ -137,9 +135,8 @@ const HomeScreenTabNavigator = new TabNavigator({
 
 const styles = StyleSheet.create({
     headerTitle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        color: '#5c5cd6'
+        fontSize: 14,
+        color: 'black'
     },
     container: {
         height: '100%',

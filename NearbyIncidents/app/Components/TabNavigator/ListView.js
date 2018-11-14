@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     containerScrollView: {
-        marginTop: 10
+        marginTop: 5
     }
 });
 
