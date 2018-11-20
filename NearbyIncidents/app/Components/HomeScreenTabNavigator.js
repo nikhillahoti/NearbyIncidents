@@ -4,8 +4,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Modal,
-    Button
+    Modal
 } from 'react-native'
 
 import { 
@@ -20,8 +19,6 @@ import ListView from './TabNavigator/ListView';
 import MapView from './TabNavigator/MapView';
 import FilterModal from './Filter/FilterModal';
 
-import AddIncident from './Screens/AddIncident';
-
 import firebase from './../helper/FirebaseConnection';
 
 // This Component makes the calls to Google Firebase. The incidents list is then passed to the other screens as props
@@ -29,16 +26,14 @@ class AppTabNavigator extends Component {
     
     constructor(props){
         super(props);
-        // Fetch the data from Google Firebase before loading the Component
-        // this.getEventsFromFirebase();
-    }
-
-    // The data for the events goes here and yet to be added
-    // This state is responsible for handling the showing of the modal as the filter button is on this screen
-    state = {
-        modalVisible: false,
-        incidentItems: [],
-        Category: []
+        
+        // The data for the events goes here and yet to be added
+        // This state is responsible for handling the showing of the modal as the filter button is on this screen
+        this.state = {
+            modalVisible: false,
+            incidentItems: [],
+            Category: []
+        }
     }
 
     // navigationOptions are responsible for displaying the top right corner filter icon,
@@ -50,7 +45,7 @@ class AppTabNavigator extends Component {
                 <View style={{padding: 10}}>
                     <Ionicons name="md-menu" 
                         size={24}
-                        color='black'
+                        color='white'
                         onPress={() => navigation.navigate('DrawerOpen')}
                     />
                 </View>
@@ -58,9 +53,10 @@ class AppTabNavigator extends Component {
             headerRight: <FontAwesome5 name="filter" 
                             size={18}
                             onPress={() => {navigation.state.params.handleFilter()}}
-                            color='black'
+                            color='white'
                             style={{padding: 10}}
-                        />
+                        />,
+            headerStyle: styles.headerStyle
         }
     }
 
@@ -71,6 +67,10 @@ class AppTabNavigator extends Component {
     }
 
     componentDidMount(){
+        // Fetch the data from Google Firebase before loading the Component
+        // this.getEventsFromFirebase();
+
+        // this is to give access of the class method to the static navigation options
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
     }
 
@@ -102,7 +102,6 @@ class AppTabNavigator extends Component {
     }
     
     render(){
-        console.log("The Incident List View props -> ", this.props.navigation);
         return(
             <View style={styles.container}>
                 <HomeScreenTabNavigator screenProps={{ navigation: this.props.navigation, events: this.state.incidentItems }} />
@@ -115,20 +114,11 @@ class AppTabNavigator extends Component {
 // So we pass a ScreenProps giving the reference to the navigation object 
 // and access it using this.ScreenProps props
 
-// This screen is the main entry point for the 
-const IncidentsListView = StackNavigator({
-    ListViewPage: {
-        screen: ListView,
-        navigationOptions: {
-            header: null
-        }
-    }
-});
 
 // This Screen is the entry point for the List View and the Map View Tabs.
 const HomeScreenTabNavigator = TabNavigator({
     ScreenListView: {
-        screen: IncidentsListView,
+        screen: ListView,
         navigationOptions: {
             tabBarLabel: 'Incidents',
             tabBarIcon: () => (
@@ -150,11 +140,14 @@ const HomeScreenTabNavigator = TabNavigator({
 const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 14,
-        color: 'black'
+        color: 'white'
     },
     container: {
         height: '100%',
         width: '100%'
+    },
+    headerStyle: {
+        backgroundColor: '#0F2CBD'
     }
 });
 

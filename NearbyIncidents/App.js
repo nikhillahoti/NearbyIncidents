@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import { StackNavigator } from 'react-navigation'
 
-import Routes from './app/routes';
+import Routes from './app/Routes';
 
 const App = () => {
   return (
