@@ -10,6 +10,11 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SingleRecord from './SingleRecordView';
 
+import {
+    NavigationActions,
+    withNavigation
+} from 'react-navigation'
+
 class ListView extends Component {
     render(){
         // Have to add code to call the details View
@@ -22,12 +27,12 @@ class ListView extends Component {
                     </View>)
         });
         return (
-            <View>
+            <View style={styles.containerMain}>
                 <ScrollView style={styles.containerScrollView}>
                     {RecordListt}
                 </ScrollView>
                 <TouchableOpacity 
-                    onPress={() => console.log("Here")}>
+                    onPress={() => this.props.screenProps.navigation.navigate('AddIncidentPage')}>
                     <MaterialIcons 
                         name="add-circle"
                         size={60}
@@ -41,6 +46,10 @@ class ListView extends Component {
 }
 
 const styles = StyleSheet.create({
+    containerMain: {
+        height: '100%',
+        width: '100%'
+    },
     recView: {
         borderBottomColor: 'darkgrey',
         borderBottomWidth: 1,
@@ -58,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ListView;
+export default withNavigation(ListView);

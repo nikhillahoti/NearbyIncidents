@@ -3,21 +3,17 @@
 import React, {Component} from 'react';
 import { StackNavigator } from 'react-navigation'
 
-import Landing from './app/Landing';
+import Routes from './app/routes';
 
-import * as firebase from 'firebase';
-
-export default class App extends Component {
-  render() {
-    return (
-      <AppStackNavigator />
-    );
-  }
+const App = () => {
+  return (
+    <AppStackNavigator />
+  );
 }
 
-const AppStackNavigator = new StackNavigator({
+const AppStackNavigator = StackNavigator({
   Landing: {
-    screen: Landing, 
+    screen: Routes, 
     navigationOptions: {
       header: null
     }
@@ -27,3 +23,5 @@ const AppStackNavigator = new StackNavigator({
     gesturesEnabled: false
   }
 })
+
+export default App;

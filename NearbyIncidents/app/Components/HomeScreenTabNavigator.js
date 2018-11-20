@@ -4,10 +4,15 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Modal
+    Modal,
+    Button
 } from 'react-native'
 
-import { TabNavigator } from 'react-navigation';
+import { 
+    TabNavigator, 
+    StackNavigator
+} from 'react-navigation';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -15,15 +20,17 @@ import ListView from './TabNavigator/ListView';
 import MapView from './TabNavigator/MapView';
 import FilterModal from './Filter/FilterModal';
 
-import firebase from './../helper/FirebaseConnection';
-import _ from 'lodash';
+import AddIncident from './Screens/AddIncident';
 
+import firebase from './../helper/FirebaseConnection';
+
+// This Component makes the calls to Google Firebase. The incidents list is then passed to the other screens as props
 class AppTabNavigator extends Component {
     
     constructor(props){
         super(props);
         // Fetch the data from Google Firebase before loading the Component
-        this.getEventsFromFirebase();
+        // this.getEventsFromFirebase();
     }
 
     // The data for the events goes here and yet to be added
@@ -95,7 +102,7 @@ class AppTabNavigator extends Component {
     }
     
     render(){
-        
+        console.log("The Incident List View props -> ", this.props.navigation);
         return(
             <View style={styles.container}>
                 <HomeScreenTabNavigator screenProps={{ navigation: this.props.navigation, events: this.state.incidentItems }} />
@@ -106,15 +113,22 @@ class AppTabNavigator extends Component {
 }
 // Children of HomeScreenTabNavigator will not have access to the navigation prop. 
 // So we pass a ScreenProps giving the reference to the navigation object 
-// and access it using ScreenProps
+// and access it using this.ScreenProps props
 
-
+// This screen is the main entry point for the 
+const IncidentsListView = StackNavigator({
+    ListViewPage: {
+        screen: ListView,
+        navigationOptions: {
+            header: null
+        }
+    }
+});
 
 // This Screen is the entry point for the List View and the Map View Tabs.
-// This will store the list of incidents and those will be fetched from Firebase from here
-const HomeScreenTabNavigator = new TabNavigator({
+const HomeScreenTabNavigator = TabNavigator({
     ScreenListView: {
-        screen: ListView,
+        screen: IncidentsListView,
         navigationOptions: {
             tabBarLabel: 'Incidents',
             tabBarIcon: () => (

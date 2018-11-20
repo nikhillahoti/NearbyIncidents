@@ -38,7 +38,8 @@ class SingleRecordView extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 10
     },
     mainContentContainer: {
         flex: 5,

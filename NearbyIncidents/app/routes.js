@@ -9,35 +9,44 @@ import Chat from './Components/DrawerComponents/Chat';
 import SOS from './Components/DrawerComponents/SOS';
 
 import HomeScreenTabNavigator from './Components/HomeScreenTabNavigator';
+import AddIncident from './Components/Screens/AddIncident';
 
-const InnerStackNavigator = new StackNavigator({
+
+const IncidentsStackNavigator = StackNavigator({
     TabNavigator: {
         screen: HomeScreenTabNavigator
+    },
+    AddIncidentPage: {
+        screen: AddIncident
     }
 });
 
-const ChatStackNavigator = new StackNavigator({
+const ChatStackNavigator = StackNavigator({
     ScreenChat: {
         screen: Chat
     }
 });
 
-const SOSStackNavigator = new StackNavigator({
+const SOSStackNavigator = StackNavigator({
     ScreenSOS: {
         screen: SOS
     }
 })
 
-const AppDrawerNavigator = new DrawerNavigator({
-    Home: {
-        screen: InnerStackNavigator
+const AppDrawerNavigator = DrawerNavigator({
+        Home: {
+            screen: IncidentsStackNavigator
+        },
+        Chat: {
+            screen: ChatStackNavigator
+        },
+        SOS: {
+            screen: SOSStackNavigator
+        }
     },
-    Chat: {
-        screen: ChatStackNavigator
-    },
-    SOS: {
-        screen: SOSStackNavigator
+    {
+        drawerPosition: 'left'
     }
-});
+);
 
 export default AppDrawerNavigator;
