@@ -9,16 +9,24 @@ import SOS from './Components/DrawerComponents/SOS';
 
 import HomeScreenTabNavigator from './Components/HomeScreenTabNavigator';
 import AddIncident from './Components/Screens/AddIncident';
+import IncidentDetails from './Components/Screens/IncidentDetails';
+import WebViewComponent from './Components/Screens/WebViewComponent';
 
 // This Stack Navigator contains the whole flow for following features:
 // Displaying the Tab Navigator with the Incident and the Nearby Map View
 // Displaying the flow for reporting the incidents
 const IncidentsStackNavigator = StackNavigator({
-    TabNavigator: {
+    TabNavigatorPage: {
         screen: HomeScreenTabNavigator
     },
     AddIncidentPage: {
         screen: AddIncident
+    },
+    IncidentDetailPage: {
+        screen: IncidentDetails
+    },
+    WebViewPage: {
+        screen: WebViewComponent
     }
 });
 

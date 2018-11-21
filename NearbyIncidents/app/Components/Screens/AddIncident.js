@@ -10,10 +10,18 @@ import {
     FormInput
 } from 'react-native-elements';
 
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+
 class AddIncident extends Component {
 
     state = {
-        description: ""
+        description: "",
+        radio_props: [
+            {label: 'Crime', value: 0 },
+            {label: 'Medical', value: 0 },
+            {label: 'Traffic', value: 0 },
+            {label: 'Utility', value: 1 }
+        ]
     }
 
     textChanged = (newDescription) => {
@@ -31,6 +39,13 @@ class AddIncident extends Component {
                         onChangeText={() => this.textChanged()} 
                         value={this.state.description}
                         multiline
+                    />
+                </View>
+                <View>
+                    <RadioForm
+                        radio_props={this.state.radio_props}
+                        //initial={0}
+                        onPress={(value) => {this.setState({value:value})}}
                     />
                 </View>
             </View>

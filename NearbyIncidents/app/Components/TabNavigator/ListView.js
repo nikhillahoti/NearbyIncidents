@@ -20,7 +20,7 @@ class ListView extends Component {
         // Have to add code to call the details View
         let RecordListt = this.props.screenProps.events.map((rec, i) => {
             return (<View key={i}>
-                        <TouchableOpacity onPress={() => console.log("Here")}>
+                        <TouchableOpacity onPress={() => this.props.screenProps.navigation.navigate('IncidentDetailPage', {record: rec})}>
                             <SingleRecord record={rec} />
                         </TouchableOpacity>
                         <View style={styles.recView} />
