@@ -172,7 +172,8 @@ const styles = StyleSheet.create({
     },
     inputArea: {
         width: '90%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        height: 200
     }
 });
 
