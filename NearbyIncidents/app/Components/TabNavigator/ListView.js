@@ -32,7 +32,7 @@ class ListView extends Component {
                     {RecordListt}
                 </ScrollView>
                 <TouchableOpacity 
-                    onPress={() => this.props.screenProps.navigation.navigate('AddIncidentPage')}>
+                    onPress={() => this.props.screenProps.navigation.navigate('AddIncidentPage', {screenProps: this.props.screenProps})}>
                     <MaterialIcons 
                         name="add-circle"
                         size={60}
