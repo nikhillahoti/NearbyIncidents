@@ -8,10 +8,15 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class SingleRecordView extends Component {
 
+
+    
+
     render(){
         if(this.props.record.description.length > 100){
             this.props.record.description = this.props.record.description.substring(0, 100) + "..."; 
         }
+
+        //this.formatDatetime();
 
         return (
             <View style={styles.mainContainer}>

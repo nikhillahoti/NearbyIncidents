@@ -41,15 +41,35 @@ class AddIncident extends Component {
         })
     }
 
+    formatDatetime = () => {
+        try {
+            let date = new Date();
+            let weeks = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            let month_names =["Jan","Feb","Mar",
+                        "Apr","May","Jun",
+                        "Jul","Aug","Sep",
+                        "Oct","Nov","Dec"];
+        
+            let weekDay = weeks[date.getDay()];
+            var day = date.getDate();
+            var month_index = date.getMonth();
+            var year = date.getFullYear();
+            
+            return weekDay + ", " + day + " " + month_names[month_index] + " " + year;
+        } catch (error) {
+            console.log("Errow when converting to date!!");   
+            return "null";
+        }
+    }
+
     handleSubmit = () => {
         const root_ref_db = firebase.database().ref();
         let events = root_ref_db.child('events');
         
-
         let incident = {
             "type": this.state.radio_props[this.state.index],
             "description": this.state.description,
-            "datetime": Date.now(),
+            "datetime": this.formatDatetime(),
             "distance": "1 mile"
         }
         
