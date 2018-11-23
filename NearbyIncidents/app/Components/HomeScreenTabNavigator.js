@@ -68,7 +68,7 @@ class AppTabNavigator extends Component {
 
     componentDidMount(){
         // Fetch the data from Google Firebase before loading the Component
-        this.getEventsFromFirebase();
+        // this.getEventsFromFirebase();
 
         // this is to give access of the class method to the static navigation options
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     headerStyle: {
-        backgroundColor: '#0F2CBD'
+        backgroundColor: '#3368FF'
     }
 });
 

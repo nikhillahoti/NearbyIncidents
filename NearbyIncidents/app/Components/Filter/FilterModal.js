@@ -78,6 +78,7 @@ class FilterModal extends Component {
                         size={20}
                         onPress={() => this.checkMe(index)}
                         containerStyle={styles.checkboxContainer}
+                        textStyle={styles.checkBox}
                     />
         });
 
@@ -99,10 +100,12 @@ class FilterModal extends Component {
                             {checkBoxList}
                         </View>
                     </View>
-                    <Button 
-                        onPress={() => this.applyFilterUpdate()} 
-                        title="Apply"
-                    />
+                    <TouchableOpacity
+                        onPress={() => this.applyFilterUpdate()}
+                        style={styles.btnTStyle}
+                    >
+                        <Text style={[styles.txtApply]}>Apply</Text>
+                    </TouchableOpacity>
                 </View> 
             </Modal>
             
@@ -114,17 +117,15 @@ const styles = StyleSheet.create({
     container: {
         width: '90%',
         height: '90%',
-        backgroundColor: 'rgba(255, 255, 255, 0.10)',
         alignSelf: 'center',
-        marginTop: 10
+        marginTop: 10,
+        backgroundColor: 'rgba(0,0,0, 0.6)'
     },
     textStyle: {
-        color: 'black',
+        color: 'white',
         padding: 5,
         textAlign: 'left',
-        fontWeight: 'bold',
-        fontSize: 17,
-        color: '#5c5cd6'
+        fontSize: 17
     },
     btnClose: {
         fontSize: 24,
@@ -142,11 +143,29 @@ const styles = StyleSheet.create({
     checkboxContainer: {
         height: 40,
         backgroundColor:'rgba(0,0,0, 0)',
-        borderWidth: 0
+        borderWidth: 0,
+        margin: 0,
+        padding: 0
     },
     txtCategory: {
         color: 'darkgrey',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginBottom: 10
+    },
+    btnTStyle: {
+        backgroundColor: '#3368FF',
+        height: 40,
+        width: 80,
+        alignSelf: 'center'
+    },
+    txtApply: {
+        color: 'white',
+        textAlign: 'center',
+        marginTop: 10
+    },
+    checkBox: {
+        fontSize: 12,
+        color: 'white'
     }
 });
 
