@@ -12,13 +12,11 @@ var PushNotification = require('react-native-push-notification');
 PushNotification.configure({
 
   onRegister: function(token){
-    console.warn(token);
     const root_ref_db = firebase.database().ref();
     let users = root_ref_db.child('user').child('Nikhil');
 
     users.set({
       deviceId: token,
-      yes: "itworked"
     }).then((data) => {
       console.warn(token);
     }).catch((error) => {
@@ -41,8 +39,6 @@ PushNotification.configure({
 
   senderID: "957321769280"
 });
-
-
 
 const App = () => {
   return (
