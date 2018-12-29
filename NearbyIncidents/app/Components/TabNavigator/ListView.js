@@ -17,7 +17,6 @@ import {
 
 class ListView extends Component {
     render(){
-        // Have to add code to call the details View
         let RecordListt = this.props.screenProps.events.map((rec, i) => {
             return (<View key={i}>
                         <TouchableOpacity onPress={() => this.props.screenProps.navigation.navigate('IncidentDetailPage', {record: rec})}>
@@ -32,12 +31,15 @@ class ListView extends Component {
                     {RecordListt}
                 </ScrollView>
                 <TouchableOpacity 
-                    onPress={() => this.props.screenProps.navigation.navigate('AddIncidentPage', {screenProps: this.props.screenProps})}>
+                    style={styles.btnAdd}
+                    onPress={() => {
+                        console.log("Here ");
+                        this.props.screenProps.navigation.navigate('AddIncidentPage', {screenProps: this.props.screenProps})
+                        }}>
                     <MaterialIcons 
                         name="add-circle"
                         size={60}
-                        color='#3368FF'
-                        style={styles.btnAdd}
+                        color='#3368FF' 
                     />
                 </TouchableOpacity>
             </View>

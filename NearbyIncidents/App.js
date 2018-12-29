@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import { StackNavigator } from 'react-navigation'
+import {ToastAndroid} from 'react-native';
 
 import Routes from './app/routes';
 
@@ -35,6 +36,7 @@ PushNotification.configure({
       message: notification['name'],
       date: new Date(Date.now())
     });
+    
   },
 
   senderID: "957321769280"
