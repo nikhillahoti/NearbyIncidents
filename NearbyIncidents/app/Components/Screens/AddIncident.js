@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native'
 
 import {
@@ -106,7 +107,7 @@ class AddIncident extends Component {
         })
 
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.radioContainer}>
                     <Text style={{fontSize: 14, fontWeight: 'bold'}}>Type</Text>
                     {radioList}
@@ -128,7 +129,7 @@ class AddIncident extends Component {
                 >
                     <Text style={styles.txtSubmit}>Submit</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         )
     }
 }

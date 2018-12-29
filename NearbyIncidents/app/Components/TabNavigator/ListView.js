@@ -16,6 +16,7 @@ import {
 } from 'react-navigation'
 
 class ListView extends Component {
+
     render(){
         let RecordListt = this.props.screenProps.events.map((rec, i) => {
             return (<View key={i}>

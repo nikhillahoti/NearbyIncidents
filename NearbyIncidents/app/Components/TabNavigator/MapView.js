@@ -8,7 +8,7 @@ class MapView extends Component {
     render(){
         return (
             <View>
-                <Text> This is my new Map View Component </Text>
+                <Text> This is my newest Map View Component </Text>
             </View>
         )
     }

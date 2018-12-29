@@ -14,10 +14,11 @@ PushNotification.configure({
 
   onRegister: function(token){
     const root_ref_db = firebase.database().ref();
-    let users = root_ref_db.child('user').child('Nikhil');
+    let users = root_ref_db.child('users').child('1');
 
     users.set({
       deviceId: token,
+      name: "Nikhil"
     }).then((data) => {
       console.warn(token);
     }).catch((error) => {
@@ -32,7 +33,7 @@ PushNotification.configure({
         }
     }, 1);
     PushNotification.localNotificationSchedule({
-      title: 'Notification with Nikhil Lahoti',
+      title: 'Nearby Incidents',
       message: notification['name'],
       date: new Date(Date.now())
     });
