@@ -5,29 +5,42 @@ admin.initializeApp();
 exports.onIncidentAdded = 
     functions.database.ref("/events/{incidentID}")
         .onCreate((snapshot, context)  => {
-            let newIncidentID = context.params.incidentID;
+            const newIncidentID = context.params.incidentID;
             
             console.log("New Incident Id is " + newIncidentID);
             
-            let incidentLocation = admin.database().ref('/incident-location/Lenzen Avenue/');
+            const incidentLocation = admin.database().ref('/incident-location/Lenzen Avenue/');
             return incidentLocation.child('incidents').push().set(newIncidentID);
         });
 
 exports.notifyUser = 
     functions.database.ref('/incident-location/{location}/incidents/{incidentId}')
         .onCreate((snapshot, context) => {
-            let usersRef = admin.database().ref('/incident-location/' + context.params.location + "/users")
+            
+            const usersRef = admin.database().ref('/incident-location/' + context.params.location + "/users")
+            
             return usersRef.once('value').then((userSnapshot) => {
-                let userR = userSnapshot.val();
-                let userDetailsRef = admin.database().ref(`/users/${userR}/deviceId/token`);
+                
+                // User Id --- Need to convert it into a list and then map on it later
+                const userR = userSnapshot.val();
+
+                const userDetailsRef = admin.database().ref(`/users/${userR}/deviceId/token`);
+                
+                const incidentDetailsRef = admin.database().ref(`/events/${snapshot.val()}/description`);
+
                 return userDetailsRef.once('value').then((token) => {
-                    const payload = {
-                        notification: {
-                            title: 'Nearby Incidents',
-                            body: 'Incident took place on Lenzen Avenue'
-                        }
-                    }
-                    return admin.messaging().sendToDevice(token.val(), payload);
+                    
+                    return incidentDetailsRef.once('value')
+                        .then((incidentDetails) => {
+
+                            const payload = {
+                                notification: {
+                                    title: 'Nearby Incidents',
+                                    body: incidentDetails.val()
+                                }
+                            }
+                            return admin.messaging().sendToDevice(token.val(), payload);
+                        });
                 });
             })
         });
