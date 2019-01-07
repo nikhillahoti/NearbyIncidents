@@ -4,13 +4,13 @@ import {
     StackNavigator
 } from 'react-navigation';
 
-import Chat from './Components/DrawerComponents/Chat';
-import SOS from './Components/DrawerComponents/SOS';
+import Chat from './components/DrawerComponents/Chat';
+import SOS from './components/DrawerComponents/SOS';
 
-import HomeScreenTabNavigator from './Components/HomeScreenTabNavigator';
-import AddIncident from './Components/Screens/AddIncident';
-import IncidentDetails from './Components/Screens/IncidentDetails';
-import WebViewComponent from './Components/Screens/WebViewComponent';
+import HomeScreenTabNavigator from './components/HomeScreenTabNavigator';
+import AddIncident from './components/Screens/AddIncident';
+import IncidentDetails from './components/Screens/IncidentDetails';
+import WebViewComponent from './components/Screens/WebViewComponent';
 
 // This Stack Navigator contains the whole flow for following features:
 // Displaying the Tab Navigator with the Incident and the Nearby Map View

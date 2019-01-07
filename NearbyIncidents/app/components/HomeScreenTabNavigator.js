@@ -42,7 +42,7 @@ class AppTabNavigator extends Component {
         return {
             headerTitle: <Text style={styles.headerTitle}>NEARBY INCIDENTS</Text>,
             headerLeft: (
-                <View style={{padding: 10}}>
+                <View style={{padding: 20}}>
                     <Ionicons name="md-menu" 
                         size={24}
                         color='white'
@@ -54,7 +54,7 @@ class AppTabNavigator extends Component {
                             size={18}
                             onPress={() => {navigation.state.params.handleFilter()}}
                             color='white'
-                            style={{padding: 10}}
+                            style={{padding: 20}}
                         />,
             headerStyle: styles.headerStyle
         }
@@ -68,7 +68,7 @@ class AppTabNavigator extends Component {
 
     componentDidMount(){
         // Fetch the data from Google Firebase before loading the Component
-        // this.getEventsFromFirebase();
+        this.getEventsFromFirebase();
 
         // this is to give access of the class method to the static navigation options
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
@@ -135,19 +135,39 @@ const HomeScreenTabNavigator = TabNavigator({
             )
         }
     }
+},{
+    tabBarPosition: 'top',
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarOptions: {
+        labelStyle: {
+            fontSize: 13,
+            fontWeight: 'bold'
+        },
+        indicatorStyle: {
+            borderBottomColor: 'white',
+            borderBottomWidth: 3
+        },
+        style: {
+            backgroundColor: '#3368FF'
+        }
+    }
 })
 
 const styles = StyleSheet.create({
     headerTitle: {
-        fontSize: 14,
-        color: 'white'
+        fontSize: 15,
+        color: 'white',
+        alignSelf: 'center',
+        fontWeight: 'bold'
     },
     container: {
         height: '100%',
         width: '100%'
     },
     headerStyle: {
-        backgroundColor: '#3368FF'
+        backgroundColor: '#3368FF',
+        elevation: 0
     }
 });
 

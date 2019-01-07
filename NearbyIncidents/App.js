@@ -10,6 +10,7 @@ import firebase from './app/helper/FirebaseConnection';
 
 var PushNotification = require('react-native-push-notification');
 
+/*
 PushNotification.configure({
 
   onRegister: function(token){
@@ -42,6 +43,7 @@ PushNotification.configure({
 
   senderID: "957321769280"
 });
+*/
 
 const App = () => {
   return (

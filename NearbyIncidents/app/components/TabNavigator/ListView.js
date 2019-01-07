@@ -51,7 +51,7 @@ class ListView extends Component {
 const styles = StyleSheet.create({
     containerMain: {
         height: '100%',
-        width: '100%'
+        width: '100%',
     },
     recView: {
         borderBottomColor: 'darkgrey',

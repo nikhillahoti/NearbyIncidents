@@ -7,10 +7,13 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native';
+
 import {
-    CheckBox,
-    Button
+    CheckBox
+    //Button
 } from 'react-native-elements';
+
+import Button from './../UI_Components/Button';
 
 class FilterModal extends Component {
 
@@ -105,7 +108,7 @@ class FilterModal extends Component {
                         style={styles.btnTStyle}
                     >
                         <Text style={[styles.txtApply]}>Apply</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>                             
                 </View> 
             </Modal>
             
