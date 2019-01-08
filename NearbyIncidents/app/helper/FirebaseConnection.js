@@ -4,5 +4,4 @@ import config from './../assets/apiKey';
 
 firebase.initializeApp(config);
 
-
 export default firebase;
