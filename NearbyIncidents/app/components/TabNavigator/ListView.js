@@ -15,6 +15,8 @@ import {
     withNavigation
 } from 'react-navigation'
 
+import blue from './../../styles/colors';
+
 class ListView extends Component {
 
     render(){
@@ -40,7 +42,7 @@ class ListView extends Component {
                     <MaterialIcons 
                         name="add-circle"
                         size={60}
-                        color='#3368FF' 
+                        color={blue} 
                     />
                 </TouchableOpacity>
             </View>

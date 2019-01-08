@@ -21,6 +21,9 @@ import FilterModal from './Filter/FilterModal';
 
 import firebase from './../helper/FirebaseConnection';
 
+import blue from './../styles/colors';
+
+
 // This Component makes the calls to Google Firebase. The incidents list is then passed to the other screens as props
 class AppTabNavigator extends Component {
     
@@ -40,7 +43,7 @@ class AppTabNavigator extends Component {
     // top left corner icon for drawer and the header text 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <Text style={styles.headerTitle}>NEARBY INCIDENTS</Text>,
+            headerTitle: <Text style={styles.headerTitle}>Nearby Incidents</Text>,
             headerLeft: (
                 <View style={{padding: 20}}>
                     <Ionicons name="md-menu" 
@@ -50,12 +53,23 @@ class AppTabNavigator extends Component {
                     />
                 </View>
             ),
-            headerRight: <FontAwesome5 name="filter" 
-                            size={18}
-                            onPress={() => {navigation.state.params.handleFilter()}}
-                            color='white'
-                            style={{padding: 20}}
-                        />,
+            headerRight: (
+                <View style={{flexDirection:'row', padding: 20}}> 
+                    <Ionicons 
+                        name="ios-search"
+                        size={24}
+                        color='white'
+                        onPress={() => navigation.navigate('SearchLocationPage')}
+                        style={{marginRight: 25, marginBottom: 5}}
+                    />
+                    <FontAwesome5 name="filter" 
+                        size={18}
+                        onPress={() => {navigation.state.params.handleFilter()}}
+                        color='white'
+                        style={{marginTop: 3}}
+                    />
+                </View>
+            ),
             headerStyle: styles.headerStyle
         }
     }
@@ -68,7 +82,7 @@ class AppTabNavigator extends Component {
 
     componentDidMount(){
         // Fetch the data from Google Firebase before loading the Component
-        this.getEventsFromFirebase();
+        // this.getEventsFromFirebase();
 
         // this is to give access of the class method to the static navigation options
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
@@ -149,14 +163,14 @@ const HomeScreenTabNavigator = TabNavigator({
             borderBottomWidth: 3
         },
         style: {
-            backgroundColor: '#3368FF'
+            backgroundColor: blue
         }
     }
 })
 
 const styles = StyleSheet.create({
     headerTitle: {
-        fontSize: 15,
+        fontSize: 18,
         color: 'white',
         alignSelf: 'center',
         fontWeight: 'bold'
@@ -166,7 +180,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     headerStyle: {
-        backgroundColor: '#3368FF',
+        backgroundColor: blue,
         elevation: 0
     }
 });

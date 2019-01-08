@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     sourceName: {
-        fontSize: 14,
+        fontSize: 16,
         color: 'black',
         flex: 1
     },

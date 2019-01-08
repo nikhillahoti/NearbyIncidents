@@ -1,0 +1,1 @@
+export default blue = '#3368FF'

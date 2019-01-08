@@ -11,6 +11,7 @@ import HomeScreenTabNavigator from './components/HomeScreenTabNavigator';
 import AddIncident from './components/Screens/AddIncident';
 import IncidentDetails from './components/Screens/IncidentDetails';
 import WebViewComponent from './components/Screens/WebViewComponent';
+import SearchLocation from './components/Screens/SearchLocation';
 
 // This Stack Navigator contains the whole flow for following features:
 // Displaying the Tab Navigator with the Incident and the Nearby Map View
@@ -25,8 +26,19 @@ const IncidentsStackNavigator = StackNavigator({
     IncidentDetailPage: {
         screen: IncidentDetails
     },
+    SearchLocationPage: {
+        screen: SearchLocation
+    },
     WebViewPage: {
         screen: WebViewComponent
+    }
+},{
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: blue,
+            elevation: 0
+        },
+        headerTintColor: 'white'
     }
 });
 
