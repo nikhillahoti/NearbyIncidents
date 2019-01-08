@@ -12,6 +12,7 @@
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
     "react-native-elements": "^0.19.1",
+    "react-native-google-autocomplete": "^0.1.5",
     "react-native-push-notification": "^3.1.2",
     "react-native-push-notifications": "^3.0.10",
     "react-native-radio-button": "^2.0.1",

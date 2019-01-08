@@ -5,6 +5,9 @@ import {
     StyleSheet
 } from 'react-native'
 
+import Map_Key from './../../assets/apiKey';
+import { GoogleAutoComplete } from 'react-native-google-autocomplete';
+
 class SearchLocation extends Component {
     
     static navigationOptions = ({navigation}) => {
@@ -15,8 +18,10 @@ class SearchLocation extends Component {
     
     render(){
         return (
-            <View>
-                <Text> Hello There</Text>
+            <View style={styles.container}>
+                <GoogleAutoComplete apiKey={Map_Key}>
+
+                </GoogleAutoComplete>
             </View>
         )
     }
@@ -29,6 +34,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: 'bold',
         marginRight: 15
+    },
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 
