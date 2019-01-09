@@ -13,6 +13,8 @@ import IncidentDetails from './components/Screens/IncidentDetails';
 import WebViewComponent from './components/Screens/WebViewComponent';
 import SearchLocation from './components/Screens/SearchLocation';
 
+import Drawer from './components/Drawer';
+
 // This Stack Navigator contains the whole flow for following features:
 // Displaying the Tab Navigator with the Incident and the Nearby Map View
 // Displaying the flow for reporting the incidents
@@ -68,6 +70,7 @@ const AppDrawerNavigator = DrawerNavigator({
         }
     },
     {
+        contentComponent: Drawer,
         drawerPosition: 'left'
     }
 );
