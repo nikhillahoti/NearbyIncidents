@@ -11,7 +11,7 @@ import SearchItem from './SearchItem';
 
 import blue from './../../styles/colors';
 
-import Map_Key from './../../assets/apiKey';
+import {Map_Key} from './../../assets/apiKey';
 import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 
 class SearchLocation extends Component {
@@ -21,7 +21,11 @@ class SearchLocation extends Component {
             headerTitle: <Text style={styles.headerTitle}>Search Location</Text>,
         }
     }
-    
+
+    handlePress = (placeDetails) => {
+        this.props.navigation.state.params.screenProps.navigate('SubscribeLocation', {screenProps: placeDetails, navigation: this.props.navigation.state.params.screenProps});
+    }
+        
     render(){
         return (
             <View style={styles.container}>
@@ -44,6 +48,7 @@ class SearchLocation extends Component {
                                         key={e1.id}  
                                         {...e1}
                                         fetchDetails={fetchDetails}
+                                        handlePress={this.handlePress}
                                     />
                                 ))}
                             </ScrollView>
@@ -57,7 +62,7 @@ class SearchLocation extends Component {
 
 const styles = StyleSheet.create({
     headerTitle: {
-        fontSize: 15,
+        fontSize: 17,
         color: 'white',
         alignSelf: 'center',
         fontWeight: 'bold',

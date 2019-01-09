@@ -12,6 +12,7 @@ import AddIncident from './components/Screens/AddIncident';
 import IncidentDetails from './components/Screens/IncidentDetails';
 import WebViewComponent from './components/Screens/WebViewComponent';
 import SearchLocation from './components/Screens/SearchLocation';
+import SubscribeLocation from './components/Screens/SubscribeLocation';
 
 import Drawer from './components/Drawer';
 
@@ -33,6 +34,9 @@ const IncidentsStackNavigator = StackNavigator({
     },
     WebViewPage: {
         screen: WebViewComponent
+    },
+    SubscribeLocation: {
+        screen: SubscribeLocation
     }
 },{
     navigationOptions: {

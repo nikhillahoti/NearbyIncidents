@@ -59,7 +59,7 @@ class AppTabNavigator extends Component {
                         name="ios-search"
                         size={24}
                         color='white'
-                        onPress={() => navigation.navigate('SearchLocationPage')}
+                        onPress={() => navigation.navigate('SearchLocationPage', {screenProps: navigation})}
                         style={{marginRight: 25, marginBottom: 5}}
                     />
                     <FontAwesome5 name="filter" 

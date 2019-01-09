@@ -4,7 +4,8 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    TextInput
 } from 'react-native'
 
 import {
@@ -14,6 +15,11 @@ import {
 
 import RadioButton from 'react-native-radio-button'
 
+import { GoogleAutoComplete } from 'react-native-google-autocomplete';
+
+import {Map_Key} from './../../assets/apiKey';
+import blue from './../../styles/colors';
+import SearchItem from './SearchItem';
 import firebase from './../../helper/FirebaseConnection';
 
 class AddIncident extends Component {
@@ -26,13 +32,16 @@ class AddIncident extends Component {
             'Traffic',
             'Utility'
         ],
-        index : 0
+        index : 0,
+        location: '',
+        locationID: '',
+        locationDetails: '',
+        textLocationVisible: false
     }
 
-    static navigationOptions  = ({navigation}) => {
+    static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <Text style={styles.headerTitle}>NEARBY INCIDENTS</Text>,
-            headerStyle: styles.headerStyle
+            headerTitle: <Text style={styles.headerTitle}>Add Incident</Text>,
         }
     }
 
@@ -71,7 +80,9 @@ class AddIncident extends Component {
             "type": this.state.radio_props[this.state.index],
             "description": this.state.description,
             "datetime": this.formatDatetime(),
-            "distance": "1 mile"
+            "distance": "1 mile",
+            "location": this.state.locationDetails.geometry.location,
+            "address": this.state.locationDetails.formatted_address
         }
         
         events.push(incident)
@@ -86,6 +97,23 @@ class AddIncident extends Component {
 
     handleRadioClick = (index) => {
         this.setState({index: index});
+    }
+
+    handlePress = (placeDetails) => {
+        console.log(placeDetails);
+        this.setState({
+            location: placeDetails.formatted_address,
+            locationID: placeDetails.place_id,
+            textLocationVisible: true,
+            locationDetails: placeDetails
+        })
+    }
+
+    enableLocationSearch = () => {
+        this.setState({
+            location: '',
+            textLocationVisible: false
+        })
     }
 
     render(){
@@ -109,17 +137,57 @@ class AddIncident extends Component {
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.radioContainer}>
-                    <Text style={{fontSize: 14, fontWeight: 'bold'}}>Type</Text>
+                    <Text style={styles.lblType}>Type</Text>
                     {radioList}
+                </View>
+                <View style={styles.viewSeparator} />
+                <View style={styles.locationContainer}>
+                    <Text style={styles.lblLocation}>Location</Text>
+                    <GoogleAutoComplete apiKey={Map_Key} 
+                        debounce={1000}
+                        minLength={4}
+                    >
+                        {({ handleTextChange, locationResults, fetchDetails }) => (
+                            <React.Fragment>
+                                <View style={styles.inputWrapper}>
+                                    {!this.state.textLocationVisible && 
+                                    <TextInput 
+                                        placeholder="Search Location"
+                                        style={styles.textInput}
+                                        onChangeText={handleTextChange}
+                                    />}
+                                    {this.state.textLocationVisible && 
+                                        <Text 
+                                            style={styles.txtLocation}
+                                            onPress={()=>this.enableLocationSearch()}
+                                        >{this.state.location}</Text>
+                                    }
+                                </View>
+                                {!this.state.textLocationVisible && 
+                                    <ScrollView>
+                                        {locationResults.map(e1 => (
+                                            <SearchItem
+                                                key={e1.id}  
+                                                {...e1}
+                                                fetchDetails={fetchDetails}
+                                                handlePress={this.handlePress}
+                                            />
+                                        ))}
+                                    </ScrollView>
+                                }
+                            </React.Fragment>
+                        )}
+                    </GoogleAutoComplete>
                 </View>
                 <View style={styles.viewSeparator} />
                 <View style={styles.descContainer}>
                     <FormLabel labelStyle={styles.descriptionTitle}>Description</FormLabel>
-                    <FormInput 
+                    <TextInput 
                         onChangeText={(newText) => this.textChanged(newText)} 
                         value={this.state.description}
-                        multiline
-                        inputStyle={styles.inputArea}
+                        multiline={true}
+                        numberOfLines={4}
+                        style={styles.inputArea}
                     />
                 </View>
                 <View style={styles.viewSeparator} />
@@ -138,28 +206,31 @@ const styles = StyleSheet.create({
     container: {
         height: '100%',
         width: '100%',
-        marginTop: 40
+        marginTop: 15
     },
     descriptionTitle: {
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
+        fontSize: 15
     },
     descContainer: {
         width: '90%',
         alignSelf: 'center'
     },
     btnSubmit: {
-        backgroundColor: '#0F2CBD',
+        backgroundColor: blue,
         width: 80,
         height: 40,
         alignSelf: 'center',
         marginTop: 20,
         paddingTop: 10,
-        borderRadius: 5
+        borderRadius: 5,
+        marginBottom: 20
     },
     txtSubmit: {
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: 15
     },
     vwRadio: {
         flexDirection: 'row',
@@ -170,13 +241,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '90%',
         padding: 10
-    },
-    headerTitle: {
-        fontSize: 14,
-        color: 'white'
-    },
-    headerStyle: {
-        backgroundColor: '#0F2CBD'
     },
     radioTxt: {
         marginLeft: 10,
@@ -192,9 +256,47 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     inputArea: {
-        width: '90%',
+        width: '100%',
+        alignSelf: 'center'
+    },
+    headerTitle: {
+        fontSize: 17,
+        color: 'white',
         alignSelf: 'center',
-        height: 200
+        fontWeight: 'bold',
+        marginRight: 15
+    },
+    lblType: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'black',
+        marginLeft: 10
+    },
+    locationContainer: {
+        width: '100%',
+        padding: 20,
+        justifyContent: 'center'
+    },
+    inputWrapper: {
+        marginTop: 10
+    },
+    textInput: {
+        height: 40,
+        width: 300,
+        borderWidth: 1,
+        paddingHorizontal: 16,
+        borderRadius: 15,
+        borderColor: blue
+    },
+    lblLocation: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'black',
+        marginLeft: 15
+    },
+    txtLocation: {
+        width: '90%',
+        textAlign: 'center'
     }
 });
 

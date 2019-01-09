@@ -36,7 +36,6 @@ class ListView extends Component {
                 <TouchableOpacity 
                     style={styles.btnAdd}
                     onPress={() => {
-                        console.log("Here ");
                         this.props.screenProps.navigation.navigate('AddIncidentPage', {screenProps: this.props.screenProps})
                         }}>
                     <MaterialIcons 

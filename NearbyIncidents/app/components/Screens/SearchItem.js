@@ -10,7 +10,7 @@ class SearchItem extends PureComponent {
     
     _handlePress = async () => {
         const res = await this.props.fetchDetails(this.props.place_id);
-        console.log(res);
+        this.props.handlePress(res);
     }
     
     render(){

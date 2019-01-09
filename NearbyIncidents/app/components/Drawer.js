@@ -21,7 +21,7 @@ class Drawer extends Component {
     render(){
         return (
             <View style={styles.container}>
-                <ScrollView>
+                <ScrollView style={styles.mainContainer}>
                     <View style={styles.labelWrapper}>
                         <TouchableOpacity
                             onPress={this.navigateToScreen('Incidents')}
@@ -50,16 +50,23 @@ class Drawer extends Component {
 }
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        marginTop: 40
+    },
     container: {
         alignItems: 'flex-start',
         backgroundColor: '#36454f',
-        width: 300,
+        width: '100%',
         height: '100%',
         borderBottomWidth: StyleSheet.hairlineWidth
     },
     labelWrapper: {
-        marginTop: 40,
+        paddingTop: 20,
+        paddingBottom: 20,
         marginLeft: 20,
+        width: 250,
+        borderBottomWidth: 1,
+        borderBottomColor: '#fff'
     },
     label: {
         color: '#fff',
