@@ -17,7 +17,7 @@ import RadioButton from 'react-native-radio-button'
 
 import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 
-import {Map_Key} from './../../assets/apiKey';
+import {Maps_Key} from './../../assets/apiKey';
 import blue from './../../styles/colors';
 import SearchItem from './SearchItem';
 import firebase from './../../helper/FirebaseConnection';
@@ -82,7 +82,9 @@ class AddIncident extends Component {
             "datetime": this.formatDatetime(),
             "distance": "1 mile",
             "location": this.state.locationDetails.geometry.location,
-            "address": this.state.locationDetails.formatted_address
+            "address": this.state.locationDetails.formatted_address,
+            "locationID": this.state.locationID,
+            "userID": 1
         }
         
         events.push(incident)
@@ -143,7 +145,7 @@ class AddIncident extends Component {
                 <View style={styles.viewSeparator} />
                 <View style={styles.locationContainer}>
                     <Text style={styles.lblLocation}>Location</Text>
-                    <GoogleAutoComplete apiKey={Map_Key} 
+                    <GoogleAutoComplete apiKey={Maps_Key} 
                         debounce={1000}
                         minLength={4}
                     >

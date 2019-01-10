@@ -11,7 +11,7 @@ import SearchItem from './SearchItem';
 
 import blue from './../../styles/colors';
 
-import {Map_Key} from './../../assets/apiKey';
+import {Maps_Key} from './../../assets/apiKey';
 import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 
 class SearchLocation extends Component {
@@ -29,7 +29,7 @@ class SearchLocation extends Component {
     render(){
         return (
             <View style={styles.container}>
-                <GoogleAutoComplete apiKey={Map_Key} 
+                <GoogleAutoComplete apiKey={Maps_Key} 
                     debounce={1000}
                     minLength={4}
                  >

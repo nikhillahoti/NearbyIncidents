@@ -10,9 +10,12 @@ import firebase from './app/helper/FirebaseConnection';
 
 var PushNotification = require('react-native-push-notification');
 
-/*
+import {senderID} from './app/assets/apiKey';
+
 PushNotification.configure({
 
+  /*
+  // To be enabled on the login screen
   onRegister: function(token){
     const root_ref_db = firebase.database().ref();
     let users = root_ref_db.child('users').child('1');
@@ -26,6 +29,7 @@ PushNotification.configure({
       console.warn(error);
     });
   },
+  */
 
   onNotification: function(notification){
     setTimeout(() => {
@@ -41,9 +45,8 @@ PushNotification.configure({
     
   },
 
-  senderID: "957321769280"
+  senderID: senderID
 });
-*/
 
 const App = () => {
   return (

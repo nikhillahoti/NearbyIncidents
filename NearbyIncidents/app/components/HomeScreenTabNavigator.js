@@ -43,7 +43,7 @@ class AppTabNavigator extends Component {
     // top left corner icon for drawer and the header text 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <Text style={styles.headerTitle}>Nearby Incidents</Text>,
+            headerTitle: <Text style={styles.headerTitle}>NEARBY INCIDENTS</Text>,
             headerLeft: (
                 <View style={{padding: 20}}>
                     <Ionicons name="md-menu" 

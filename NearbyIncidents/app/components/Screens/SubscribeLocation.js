@@ -8,6 +8,8 @@ import {
 
 import blue from '../../styles/colors';
 
+import firebase from './../../helper/FirebaseConnection';
+
 class SubscribeLocation extends Component {
     
     static navigationOptions = ({navigation}) => {
@@ -16,21 +18,42 @@ class SubscribeLocation extends Component {
         }
     }
 
+    state = {
+        userRegistered: false
+    }
+
     handleSubscribe = () =>{
         // Add the user to the subscribers list
         this.props.navigation.state.params.navigation.navigate("TabNavigatorPage");
+    }
+
+    userMappingCheck = (place_id) => {
+        const root_ref_db = firebase.database().ref();
+        root_ref_db.child('incident-location/' + place_id + "/users")
+            .orderByValue().equalTo("1")
+            .once('value', snap => {
+                if(snap.exists()){
+                    this.setState({userRegistered: true})
+                }
+                return Promise.resolve();
+            })
     }
     
     render(){
         let data = this.props.navigation.state.params.screenProps;
         console.log(data);
+        this.userMappingCheck(data.place_id);
         return (
             <View style={styles.holder}>
+                {!this.state.userRegistered && 
+                    <Text style={styles.error}>Already Subscribed to Location! </Text>
+                }
                 <Text style={styles.title}>Location</Text>
                 <Text style={styles.description}>{data.formatted_address}</Text>
                 <TouchableOpacity
                     style={styles.btnSubscribe}
                     onPress={this.handleSubscribe}
+                    disabled={!this.state.userRegistered}
                 >
                     <Text style={styles.txtSubscribe}>Subscribe</Text>
                 </TouchableOpacity>
@@ -77,6 +100,11 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 14
+    },
+    error: {
+        color: 'red',
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 });
 
