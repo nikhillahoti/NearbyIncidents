@@ -22,15 +22,20 @@ class SubscribeLocation extends Component {
         userRegistered: false
     }
 
-    handleSubscribe = () =>{
+    handleSubscribe = () => {
         // Add the user to the subscribers list
-        this.props.navigation.state.params.navigation.navigate("TabNavigatorPage");
+        const root_ref_db = firebase.database().ref();
+        root_ref_db.child('incident-location/' + this.props.navigation.state.params.screenProps.place_id + "/users").child("1").set("1")
+            .then(() => {
+                this.props.navigation.state.params.navigation.navigate("TabNavigatorPage");
+            })
     }
 
     userMappingCheck = (place_id) => {
+        console.log(place_id);
         const root_ref_db = firebase.database().ref();
         root_ref_db.child('incident-location/' + place_id + "/users")
-            .orderByValue().equalTo("1")
+            .child("1")
             .once('value', snap => {
                 if(snap.exists()){
                     this.setState({userRegistered: true})
@@ -45,7 +50,7 @@ class SubscribeLocation extends Component {
         this.userMappingCheck(data.place_id);
         return (
             <View style={styles.holder}>
-                {!this.state.userRegistered && 
+                {this.state.userRegistered && 
                     <Text style={styles.error}>Already Subscribed to Location! </Text>
                 }
                 <Text style={styles.title}>Location</Text>
@@ -53,7 +58,7 @@ class SubscribeLocation extends Component {
                 <TouchableOpacity
                     style={styles.btnSubscribe}
                     onPress={this.handleSubscribe}
-                    disabled={!this.state.userRegistered}
+                    disabled={this.state.userRegistered}
                 >
                     <Text style={styles.txtSubscribe}>Subscribe</Text>
                 </TouchableOpacity>
