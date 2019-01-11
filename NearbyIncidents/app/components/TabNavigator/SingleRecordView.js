@@ -4,6 +4,10 @@ import {Text,
     StyleSheet,
     Image
 } from 'react-native';
+
+import {Card} from 'react-native-elements';
+import blue from './../../styles/colors';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class SingleRecordView extends Component {
@@ -19,7 +23,7 @@ class SingleRecordView extends Component {
                     <FontAwesome 
                         size={48}
                         name="rss"
-                        color="black"
+                        color={blue}
                     />
                 </View>
                 <View style={styles.mainContentContainer}>
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         flexDirection: 'row',
-        marginBottom: 10
+        margin: 10
     },
     mainContentContainer: {
         flex: 5,
@@ -49,12 +53,14 @@ const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
         textAlign: 'right',
-        marginLeft: 20,
+        //marginLeft: 10,
+        marginRight: 10,
         marginTop: 20
     },
     sourceName: {
         fontSize: 16,
-        color: 'black',
+        color: blue,
+        fontWeight: 'bold',
         flex: 1
     },
     Content: {
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     timeFont: {
-        fontSize: 10,
+        fontSize: 12,
         marginTop: 10,
         color: 'black'
     },
@@ -77,6 +83,10 @@ const styles = StyleSheet.create({
     },
     containerHeader: {
         flexDirection: 'row'
+    },
+    cardWrapper: {
+        borderRadius: 15,
+        margin: 10
     }
 });
 

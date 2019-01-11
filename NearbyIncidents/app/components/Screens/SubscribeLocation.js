@@ -32,7 +32,6 @@ class SubscribeLocation extends Component {
     }
 
     userMappingCheck = (place_id) => {
-        console.log(place_id);
         const root_ref_db = firebase.database().ref();
         root_ref_db.child('incident-location/' + place_id + "/users")
             .child("1")
@@ -46,7 +45,6 @@ class SubscribeLocation extends Component {
     
     render(){
         let data = this.props.navigation.state.params.screenProps;
-        console.log(data);
         this.userMappingCheck(data.place_id);
         return (
             <View style={styles.holder}>

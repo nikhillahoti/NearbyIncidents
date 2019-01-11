@@ -7,6 +7,8 @@ import {
     TouchableOpacity
 } from 'react-native'
 
+import blue from './../styles/colors';
+
 import {NavigationActions} from 'react-navigation';
 
 class Drawer extends Component {
@@ -22,6 +24,7 @@ class Drawer extends Component {
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.mainContainer}>
+                    <Text style={styles.header}>{"Nearby Incidents"}</Text>
                     <View style={styles.labelWrapper}>
                         <TouchableOpacity
                             onPress={this.navigateToScreen('Incidents')}
@@ -71,6 +74,14 @@ const styles = StyleSheet.create({
     label: {
         color: '#fff',
         fontSize: 18
+    },
+    header: {
+        color: '#fff',
+        fontSize: 22,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 20,
+        marginLeft: 15
     }
 });
 

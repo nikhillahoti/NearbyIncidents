@@ -138,11 +138,6 @@ class AddIncident extends Component {
 
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.radioContainer}>
-                    <Text style={styles.lblType}>Type</Text>
-                    {radioList}
-                </View>
-                <View style={styles.viewSeparator} />
                 <View style={styles.locationContainer}>
                     <Text style={styles.lblLocation}>Location</Text>
                     <GoogleAutoComplete apiKey={Maps_Key} 
@@ -180,6 +175,11 @@ class AddIncident extends Component {
                             </React.Fragment>
                         )}
                     </GoogleAutoComplete>
+                </View>
+                <View style={styles.viewSeparator} />
+                <View style={styles.radioContainer}>
+                    <Text style={styles.lblType}>Type</Text>
+                    {radioList}
                 </View>
                 <View style={styles.viewSeparator} />
                 <View style={styles.descContainer}>

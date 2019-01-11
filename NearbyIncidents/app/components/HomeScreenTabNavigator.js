@@ -19,10 +19,9 @@ import ListView from './TabNavigator/ListView';
 import MapView from './TabNavigator/MapView';
 import FilterModal from './Filter/FilterModal';
 
-import firebase from './../helper/FirebaseConnection';
+import firebaseConn from './../helper/FirebaseConnection';
 
 import blue from './../styles/colors';
-
 
 // This Component makes the calls to Google Firebase. The incidents list is then passed to the other screens as props
 class AppTabNavigator extends Component {
@@ -43,7 +42,7 @@ class AppTabNavigator extends Component {
     // top left corner icon for drawer and the header text 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <Text style={styles.headerTitle}>NEARBY INCIDENTS</Text>,
+            headerTitle: <Text style={styles.headerTitle}>Nearby Incidents</Text>,
             headerLeft: (
                 <View style={{padding: 20}}>
                     <Ionicons name="md-menu" 
@@ -82,10 +81,10 @@ class AppTabNavigator extends Component {
 
     componentDidMount(){
         // Fetch the data from Google Firebase before loading the Component
-        // this.getEventsFromFirebase();
+        this.getEventsFromFirebase();
 
         // this is to give access of the class method to the static navigation options
-        this.props.navigation.setParams({handleFilter: this.ToggleModal})
+        // this.props.navigation.setParams({handleFilter: this.ToggleModal})
     }
 
     applyFilter = (newCategory) => {
@@ -98,7 +97,7 @@ class AppTabNavigator extends Component {
     }
 
     getEventsFromFirebase = () => {
-        const root_ref_db = firebase.database().ref();
+        const root_ref_db = firebaseConn.database().ref();
         let events = root_ref_db.child('events');
 
         this.state.Category.map((type) => {

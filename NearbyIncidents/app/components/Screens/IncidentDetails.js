@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
         justifyContent: 'center',
-        display: 'flex'
+        display: 'flex',
+        marginTop: 20
     },
     txttitle: {
         textAlign: 'center',

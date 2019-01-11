@@ -13,8 +13,7 @@ var PushNotification = require('react-native-push-notification');
 import {senderID} from './app/assets/apiKey';
 
 PushNotification.configure({
-
-  /*
+  
   // To be enabled on the login screen
   onRegister: function(token){
     const root_ref_db = firebase.database().ref();
@@ -29,7 +28,7 @@ PushNotification.configure({
       console.warn(error);
     });
   },
-  */
+  
 
   onNotification: function(notification){
     setTimeout(() => {

@@ -21,13 +21,13 @@ class ListView extends Component {
 
     render(){
         let RecordListt = this.props.screenProps.events.map((rec, i) => {
-            return (<View key={i}>
+            return (<View style={styles.recordSeparator} key={i}>
                         <TouchableOpacity onPress={() => this.props.screenProps.navigation.navigate('IncidentDetailPage', {record: rec})}>
                             <SingleRecord record={rec} />
                         </TouchableOpacity>
-                        <View style={styles.recView} />
                     </View>)
         });
+        // <View style={styles.recView} />
         return (
             <View style={styles.containerMain}>
                 <ScrollView style={styles.containerScrollView}>
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     containerMain: {
         height: '100%',
         width: '100%',
+        backgroundColor: '#D3D3D3'
     },
     recView: {
         borderBottomColor: 'darkgrey',
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     containerScrollView: {
+        marginBottom: 5,
         marginTop: 5
     },
     btnAdd: {
@@ -68,6 +70,12 @@ const styles = StyleSheet.create({
         bottom: 10,
         right: 20,
         opacity: 1
+    },
+    recordSeparator: {
+        borderBottomColor: 'black',
+        marginBottom: 5,
+        marginTop: 5,
+        backgroundColor: '#fff'
     }
 });
 
