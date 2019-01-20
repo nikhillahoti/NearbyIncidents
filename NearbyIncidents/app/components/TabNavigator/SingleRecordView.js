@@ -18,23 +18,25 @@ class SingleRecordView extends Component {
         }
 
         return (
-            <View style={styles.mainContainer}>
-                <View style={styles.imageContainer}>
-                    <FontAwesome 
-                        size={48}
-                        name="rss"
-                        color={blue}
-                    />
-                </View>
-                <View style={styles.mainContentContainer}>
-                    <View style={styles.containerHeader}>
-                        <Text style={styles.sourceName}>{this.props.record.type}</Text>
-                        <Text style={styles.distance}>{this.props.record.distance}</Text>
+            <Card>
+                <View style={styles.mainContainer}>
+                    <View style={styles.imageContainer}>
+                        <FontAwesome 
+                            size={48}
+                            name="rss"
+                            color={blue}
+                        />
                     </View>
-                    <Text style={styles.Content}>{this.props.record.description}</Text>
-                    <Text style={styles.timeFont}>{this.props.record.datetime}</Text>
+                    <View style={styles.mainContentContainer}>
+                        <View style={styles.containerHeader}>
+                            <Text style={styles.sourceName}>{this.props.record.type}</Text>
+                            <Text style={styles.distance}>{this.props.record.distance}</Text>
+                        </View>
+                        <Text style={styles.Content}>{this.props.record.description}</Text>
+                        <Text style={styles.timeFont}>{this.props.record.datetime}</Text>
+                    </View>
                 </View>
-            </View>
+            </Card>
         );
     }
 }
@@ -53,7 +55,6 @@ const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
         textAlign: 'right',
-        //marginLeft: 10,
         marginRight: 10,
         marginTop: 20
     },

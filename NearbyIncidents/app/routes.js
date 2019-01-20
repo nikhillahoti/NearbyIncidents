@@ -14,11 +14,22 @@ import WebViewComponent from './components/Screens/WebViewComponent';
 import SearchLocation from './components/Screens/SearchLocation';
 import SubscribeLocation from './components/Screens/SubscribeLocation';
 
+import MedicalAndTrappedQuestionnaire from './components/Screens/PatientCountQuestionnaire';
+import InjuryQuestionnaire from './components/Screens/InjuryQuestionnaire';
+
 import Drawer from './components/Drawer';
 
-// This Stack Navigator contains the whole flow for following features:
-// Displaying the Tab Navigator with the Incident and the Nearby Map View
-// Displaying the flow for reporting the incidents
+const TrappedMedicalFlow = StackNavigator({
+    MedicalAndTrappedQuestionnaire: {
+        screen: MedicalAndTrappedQuestionnaire
+    },
+    InjuryQuestionnaire: {
+        screen: InjuryQuestionnaire
+    }   
+},{
+    headerMode: 'none'
+});
+
 const IncidentsStackNavigator = StackNavigator({
     TabNavigatorPage: {
         screen: HomeScreenTabNavigator
@@ -63,20 +74,20 @@ const SOSStackNavigator = StackNavigator({
 });
 
 const AppDrawerNavigator = DrawerNavigator({
-        Incidents: {
-            screen: IncidentsStackNavigator
-        },
-        Chat: {
-            screen: ChatStackNavigator
-        },
-        SOS: {
-            screen: SOSStackNavigator
-        }
+    Incidents: {
+        screen: IncidentsStackNavigator
     },
-    {
-        contentComponent: Drawer,
-        drawerPosition: 'left'
+    Chat: {
+        screen: ChatStackNavigator
+    },
+    SOS: {
+        screen: SOSStackNavigator
     }
+},
+{
+    contentComponent: Drawer,
+    drawerPosition: 'left'
+}
 );
 
 export default AppDrawerNavigator;

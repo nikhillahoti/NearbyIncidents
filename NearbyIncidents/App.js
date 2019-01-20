@@ -16,7 +16,7 @@ PushNotification.configure({
   
   // To be enabled on the login screen
   onRegister: function(token){
-    const root_ref_db = firebase.database().ref();
+    /*const root_ref_db = firebase.database().ref();
     let users = root_ref_db.child('users').child('1');
 
     users.set({
@@ -26,7 +26,7 @@ PushNotification.configure({
       console.warn(token);
     }).catch((error) => {
       console.warn(error);
-    });
+    });*/
   },
   
 
