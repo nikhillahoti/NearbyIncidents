@@ -10,12 +10,12 @@ import blue from '../../styles/colors';
 
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
 
-class MedicalAndTrappedQuestionnaire extends Component {
+class FireQuestionnaire extends Component {
     state = {
         radio_props : [
             {label: "1", value: 1},
-            {label: "5-10", value: 2},
-            {label: "More than 10", value: 3}
+            {label: "2-5", value: 2},
+            {label: "More than 5", value: 3}
         ],
         value: 1
     }
@@ -29,15 +29,16 @@ class MedicalAndTrappedQuestionnaire extends Component {
     handlePress = () => {
         let data = this.props.navigation.state.params.data;
         if(this.state.value == 1) data.NumberOfPeople = "1";
-        else if(this.state.value == 2) data.NumberOfPeople = "5-10";
-        else data.NumberOfPeople = "More than 10";
-        this.props.navigation.navigate('InjuryQuestionnaire', {data: data});
+        else if(this.state.value == 2) data.NumberOfPeople = "2-5";
+        else data.NumberOfPeople = "More than 5";
+
+        this.props.navigation.navigate('FireQuestionnaire_Step2', {data: data});
     }
 
     render(){
         return (
             <View style={styles.container}>
-                <Text style={styles.header}>{"No of injured patient (Any one)"}</Text>
+                <Text style={styles.header}>{"No of buildings on fire (Any one)"}</Text>
                 <RadioForm 
                     style={styles.radio}
                     radio_props={this.state.radio_props}
@@ -93,4 +94,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default MedicalAndTrappedQuestionnaire;
+export default FireQuestionnaire;

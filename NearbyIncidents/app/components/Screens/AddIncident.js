@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
     View,
+    ScrollView,
     Text,
     StyleSheet, 
     TouchableOpacity,
@@ -32,58 +33,64 @@ class AddIncident extends Component {
     
     handlePress = () => {
         switch(this.state.value){
-            case 1: // Trapped & Medical 
-            case 2: // have the same Questionnaire
-                this.props.navigation.navigate('MedicalAndTrappedQuestionnaire');
+            case 1: 
+                this.props.navigation.navigate('TrappedMedicalIncidentFlowPage', {data: {type: "Trapped"}});
+                break;
+
+            case 2: 
+                this.props.navigation.navigate('TrappedMedicalIncidentFlowPage', {data: {type: "Medical"}});
                 break;
 
             case 3: 
-                this.props.navigation.navigate('FireQuestionnaire');
+                this.props.navigation.navigate('FireIncidentFlowPage', {data: {type: "Fire"}});
                 break;
 
             case 4: 
-                this.props.navigation.navigate('PoliceQuestionnaire');
+                this.props.navigation.navigate('PoliceFlowPage', {data: {type: "Police"}});
                 break;
 
             case 5: 
-                this.props.navigation.navigate('TrafficQuestionnaire');
+                this.props.navigation.navigate('TrafficQuestionnaire', {data: {type: "Traffic"}});
                 break;
 
             case 6: 
-                this.props.navigation.navigate('UtilityQuestionnaire');
+                this.props.navigation.navigate('UtilityQuestionnaire', {data: {type: "Utility"}});
                 break;
 
             case 7: 
-                this.props.navigation.navigate('OtherQuestionnaire');
+                this.props.navigation.navigate('OtherQuestionnaire', {data: {type: "Other"}});
                 break;
         }
     }
 
     render(){
         return (
-            <View style={styles.container}>
-                <RadioForm 
-                    style={styles.radio}
-                    radio_props={this.state.radio_props}
-                    initial={0}
-                    borderWidth={1}
-                    buttonSize={14}
-                    animation={true}
-                    onPress={(value) => {this.setState({value: value})}}
-                />
-                <TextInput 
-                    placeholder="Please specify"
-                    style={styles.textInput}
-                    multiline={true}
-                    numberOfLines={4}
-                />
-                <TouchableOpacity
-                    style={styles.btnContainer}      
-                    onPress={this.handlePress}    
-                >
-                    <Text style={styles.btnNext}>{"Next"}</Text>
-                </TouchableOpacity>
-            </View>
+            <ScrollView>
+                <View style={styles.container}>
+                    <Text style={styles.header}>{"Select the type of incident you want to report"}</Text>
+                    <RadioForm 
+                        style={styles.radio}
+                        radio_props={this.state.radio_props}
+                        initial={0}
+                        borderWidth={1}
+                        buttonSize={14}
+                        animation={true}
+                        onPress={(value) => {this.setState({value: value})}}
+                    />
+                    <TextInput 
+                        placeholder="Please specify"
+                        style={styles.textInput}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <TouchableOpacity
+                        style={styles.btnContainer}      
+                        onPress={this.handlePress}    
+                    >
+                        <Text style={styles.btnNext}>{"Next"}</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         )
     }
 }
@@ -96,6 +103,12 @@ const styles = StyleSheet.create({
     btnNext: {
         color: '#fff',
         textAlign: 'center'
+    },
+    header: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        marginBottom: 30,
+        marginTop: 30
     },
     radio: {
         marginRight: 30

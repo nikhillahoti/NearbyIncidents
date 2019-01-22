@@ -8,6 +8,8 @@ import {
 
 import {CheckBox} from 'react-native-elements';
 
+import eventsObj from './../../helper/Firebase_Events';
+
 import blue from './../../styles/colors';
 
 class InjuryQuestionnaire extends Component {
@@ -16,18 +18,22 @@ class InjuryQuestionnaire extends Component {
         severeInjury: [
             { 
                 label: 'Breathing',
+                header: 'Breathing',
                 checked: false
             },
             { 
                 label: 'Bleeding',
+                header: 'Bleeding',
                 checked: false
             },
             { 
                 label: 'Conscious',
+                header: 'Conscious',
                 checked: false
             },
             { 
                 label: 'In shock (all that apply)',
+                header: 'Shock',
                 checked: false
             }
         ],
@@ -49,7 +55,8 @@ class InjuryQuestionnaire extends Component {
                 checked: false
             }
         ],
-        data: {}
+        data: {},
+        error: false
     }
 
     static navigationOptions = ({navigation}) => {
@@ -63,7 +70,8 @@ class InjuryQuestionnaire extends Component {
         lstSevereInjury[index].checked = !lstSevereInjury[index].checked;
 
         this.setState({
-            severeInjury: lstSevereInjury
+            severeInjury: lstSevereInjury,
+            error: false
         });
     }
 
@@ -71,14 +79,56 @@ class InjuryQuestionnaire extends Component {
         let lstShockInjury = this.state.shockInjury;
         lstShockInjury[index].checked = !lstShockInjury[index].checked;
 
+        let lstSevereInjury = this.state.severeInjury;
+        lstSevereInjury[3].checked = true;
+
         this.setState({
-            shockInjury: lstShockInjury
+            shockInjury: lstShockInjury,
+            severeInjury: lstSevereInjury,
+            error: false
         });
+    }
+
+    handlePress = () => {
+        let data = this.props.navigation.state.params.data;
+
+        let majorInjuries = [];
+        this.state.severeInjury.map((elem) => {
+            if(elem.checked){
+                majorInjuries.push(elem.header);
+            }
+        });
+
+        if(majorInjuries.length < 1){
+            this.setState({error: true});
+            return;
+        }
+
+        data["Major Injuries"] = majorInjuries;
+
+        if(this.state.severeInjury[3].checked){
+            let shockDetails = [];
+            this.state.shockInjury.map((elem) => {
+                if(elem.checked){
+                    shockDetails.push(elem.label);
+                }
+            });
+
+            if(shockDetails.length < 1){
+                this.setState({error: true});
+                return;
+            }
+            data["Shock Details"] = shockDetails;
+        }
+
+        eventsObj.post(data)
+            .then(() => {
+                this.props.navigation.navigate('TabNavigatorPage');
+            });
     }
 
     render(){
         //this.props.navigation.state.params.data
-        console.log(this.props.navigation.state.params.data);
 
         const severeInjuryList = this.state.severeInjury.map((option, index) => {
             return <CheckBox 
@@ -104,17 +154,10 @@ class InjuryQuestionnaire extends Component {
                     />
         });
 
-        handlePress = () => {
-            let data = "";
-            if(this.state.value == 1) data = "1";
-            if(this.state.value == 2) data = "5-10";
-            if(this.state.value == 3) data = "More than 10";
-    
-            this.props.navigation.navigate('InjuryQuestionnaire', {data: {NumberOfPeople: data}});
-        }
-
         return (
             <View style={styles.container}>
+                {this.state.error && 
+                <Text style={styles.errorHeader}>{"Please select appropriate options!"}</Text>}
                 <Text style={styles.header}>{"Most severe injuries (all that apply)"}</Text>
                 <View style={styles.severeContainer}>
                     {severeInjuryList}
@@ -143,6 +186,12 @@ const styles= StyleSheet.create({
         fontSize: 15,
         marginBottom: 30,
         marginTop: 30
+    },
+    errorHeader: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        textAlign: 'center',
+        color: 'red'
     },
     radio: {
         marginRight: 30

@@ -17,9 +17,14 @@ import SubscribeLocation from './components/Screens/SubscribeLocation';
 import MedicalAndTrappedQuestionnaire from './components/Screens/PatientCountQuestionnaire';
 import InjuryQuestionnaire from './components/Screens/InjuryQuestionnaire';
 
+import FireQuestionnaire from './components/Screens/FireQuestionnaire';
+import FireQuestionnaire_Step2 from './components/Screens/FireQuestionnaire_Step2';
+
+import PoliceQuestionnaire from './components/Screens/PoliceQuestionnaire';
+
 import Drawer from './components/Drawer';
 
-const TrappedMedicalFlow = StackNavigator({
+const TrappedMedicalIncidentFlow = StackNavigator({
     MedicalAndTrappedQuestionnaire: {
         screen: MedicalAndTrappedQuestionnaire
     },
@@ -30,12 +35,48 @@ const TrappedMedicalFlow = StackNavigator({
     headerMode: 'none'
 });
 
+const FireIncidentFlow = StackNavigator({
+    FireQuestionnaire: {
+        screen: FireQuestionnaire
+    },
+    FireQuestionnaire_Step2: {
+        screen: FireQuestionnaire_Step2
+    }   
+},{
+    headerMode: 'none'
+});
+
+const PoliceFlow = StackNavigator({
+    PoliceQuestionnaire: {
+        screen: PoliceQuestionnaire
+    }
+},{
+    headerMode: 'none'
+});
+
+const AddIncidentNavigator = StackNavigator({
+    AddIncident: {
+        screen: AddIncident
+    },
+    TrappedMedicalIncidentFlowPage: {
+        screen: TrappedMedicalIncidentFlow
+    },
+    FireIncidentFlowPage: {
+        screen: FireIncidentFlow
+    },
+    PoliceFlowPage: {
+        screen: PoliceFlow
+    }
+},{
+    headerMode: 'none'
+});
+
 const IncidentsStackNavigator = StackNavigator({
     TabNavigatorPage: {
         screen: HomeScreenTabNavigator
     },
     AddIncidentPage: {
-        screen: AddIncident
+        screen: AddIncidentNavigator
     },
     IncidentDetailPage: {
         screen: IncidentDetails
