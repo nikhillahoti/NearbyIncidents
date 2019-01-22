@@ -81,8 +81,6 @@ class FireQuestionnaire_Step2 extends Component {
     }
 
     render(){
-        //this.props.navigation.state.params.data
-        console.log(this.state.chemicals);
 
         const additionalInfoList = this.state.additionalInfo.map((option, index) => {
             return <CheckBox 

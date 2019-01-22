@@ -10,6 +10,8 @@ import {
 
 import {CheckBox} from 'react-native-elements';
 
+import eventsObj from './../../helper/Firebase_Events';
+
 import blue from './../../styles/colors';
 
 class PoliceQuestionnaire extends Component {
@@ -37,7 +39,8 @@ class PoliceQuestionnaire extends Component {
                 checked: false
             }
         ],
-        data: {}
+        data: {},
+        error: false
     }
 
     static navigationOptions = ({navigation}) => {
@@ -51,24 +54,36 @@ class PoliceQuestionnaire extends Component {
         lstadditionalInfo[index].checked = !lstadditionalInfo[index].checked;
 
         this.setState({
-            additionalInfo: lstadditionalInfo
+            additionalInfo: lstadditionalInfo,
+            error: false
         });
     }
 
     handlePress = () => {
-        let data = "";
-        if(this.state.value == 1) data = "Looting";
-        if(this.state.value == 2) data = "Shots Fired";
-        if(this.state.value == 3) data = "Vandalism";
-        if(this.state.value == 4) data = "Assault";
-        if(this.state.value == 5) data = "Gang Violence";
+        let data = this.props.navigation.state.params.data;
+        
+        let lstIncidents = [];
+        this.state.additionalInfo.map((elem) => {
+            if(elem.checked){
+                lstIncidents.push(elem.label);
+            }
+        });
 
-        this.props.navigation.navigate('InjuryQuestionnaire', {data: {NumberOfPeople: data}});
+        if(lstIncidents.length < 1){
+            this.setState({error: true});
+            return;
+        }
+        
+        data["Additional Information"] = lstIncidents;
+
+        eventsObj.post(data)
+            .then(() => {
+                this.props.navigation.navigate('TabNavigatorPage');
+            });
     }
 
     render(){
         //this.props.navigation.state.params.data
-        console.log("Select appropriate option (all that apply)");
 
         const additionalInfoList = this.state.additionalInfo.map((option, index) => {
             return <CheckBox 
@@ -85,7 +100,9 @@ class PoliceQuestionnaire extends Component {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    <Text style={styles.header}>{"Additional information (all that apply)"}</Text>
+                    {this.state.error && 
+                    <Text style={styles.errorHeader}>{"Please select appropriate options!"}</Text>}
+                    <Text style={styles.header}>{"Select appropriate options (all that apply)"}</Text>
                     <View style={styles.additionalInfoContainer}>
                         {additionalInfoList}
                     </View>
@@ -111,6 +128,12 @@ const styles= StyleSheet.create({
         fontSize: 15,
         marginBottom: 30,
         marginTop: 30
+    },
+    errorHeader: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        textAlign: 'center',
+        color: 'red'
     },
     btnContainer: {
         backgroundColor: blue,
