@@ -23,6 +23,7 @@ import FireQuestionnaire_Step2 from './components/Screens/FireQuestionnaire_Step
 import PoliceQuestionnaire from './components/Screens/PoliceQuestionnaire';
 
 import TrafficQuestionnaire from './components/Screens/TrafficQuestionnaire';
+import UtilitiesQuestionnaire from './components/Screens/UtilitiesQuestionnaire';
 
 import Drawer from './components/Drawer';
 
@@ -64,6 +65,14 @@ const TrafficFlow = StackNavigator({
     headerMode: 'none'
 });
 
+const UtilitiesFlow = StackNavigator({
+    UtilitiesQuestionnaire: {
+        screen: UtilitiesQuestionnaire
+    }
+},{
+    headerMode: 'none'
+});
+
 const AddIncidentNavigator = StackNavigator({
     AddIncident: {
         screen: AddIncident
@@ -79,6 +88,9 @@ const AddIncidentNavigator = StackNavigator({
     },
     TrafficFlowPage: {
         screen: TrafficFlow
+    },
+    UtilitiesFlowPage: {
+        screen: UtilitiesFlow
     }
 },{
     headerMode: 'none'

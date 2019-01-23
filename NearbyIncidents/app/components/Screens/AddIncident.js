@@ -54,7 +54,7 @@ class AddIncident extends Component {
                 break;
 
             case 6: 
-                this.props.navigation.navigate('UtilityQuestionnaire', {data: {type: "Utility"}});
+                this.props.navigation.navigate('UtilitiesFlowPage', {data: {type: "Utility"}});
                 break;
 
             case 7: 
