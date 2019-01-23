@@ -15,6 +15,8 @@ import blue from './../../styles/colors';
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
 import style from '../UI_Components/style';
 
+import eventsObj from './../../helper/Firebase_Events';
+
 class UtilitiesQuestionnaire extends Component {
 
     state = {
@@ -138,6 +140,116 @@ class UtilitiesQuestionnaire extends Component {
         this.setState({
             CellphoneInfo: lstCellphone
         });
+    }
+
+    handlePress = () => {
+        let data  = this.props.navigation.state.params.data;
+
+        let flag = false;
+        let selected = false;
+        let lstPowerProblems = [];
+        this.state.PowerOutInfo.map((elem, index) => {
+            if(elem.checked){
+                selected = true;
+                flag = true;
+                lstPowerProblems.push(elem.label);
+            }
+        });
+
+        if(selected && this.state.PowerOutInfo[1].checked){
+            data["Power"] = {};
+            data.Power["Power Problems"] = lstPowerProblems;
+            let lstPowerBlocks =[];
+            lstPowerBlocks.push(this.state.PowerOut_radio_props[this.state.PowerBlockValue - 1].label);
+            data.Power["Number of Blocks"] = lstPowerBlocks;
+            flag = true;
+        }
+
+        selected = false;
+        let lstWaterProblems = [];
+        this.state.WaterInfo.map((elem, index) => {
+            if(elem.checked){
+                selected = true;
+                flag = true;
+                lstWaterProblems.push(elem.label);
+            }
+        });
+
+        if(selected && this.state.WaterInfo[0].checked){
+            data["Water"] = {};
+            data.Water["Water Problems"] = lstWaterProblems;
+            let lstWaterBlocks =[];
+            lstWaterBlocks.push(this.state.Water_radio_props[this.state.WaterBlockValue - 1].label);
+            data.Water["Number of Blocks"] = lstWaterBlocks;
+            flag = true;
+        }
+
+        selected = false;
+        let lstGasProblems = [];
+        this.state.GasInfo.map((elem, index) => {
+            if(elem.checked){
+                selected = true;
+                flag = true;
+                lstGasProblems.push(elem.label);
+            }
+        });
+
+        if(selected && this.state.GasInfo[1].checked){
+            data["Gas"] = {};
+            data.Gas["Gas Problems"] = lstGasProblems;
+            let lstGasBlocks =[];
+            lstGasBlocks.push(this.state.Gas_radio_props[this.state.GasBlockValue - 1].label);
+            data.Gas["Number of Blocks"] = lstGasBlocks;
+            flag = true;
+        }
+
+        selected = false;
+        let lstLandLineProblems = [];
+        this.state.LandlineInfo.map((elem, index) => {
+            if(elem.checked){
+                selected = true;
+                flag = true;
+                lstLandLineProblems.push(elem.label);
+            }
+        });
+
+        if(selected && this.state.LandlineInfo[0].checked){
+            data["Telephone"] = {};
+            data.Telephone["LandLine"] = {};
+            data.Telephone.LandLine["LandLine Problems"] = lstLandLineProblems;
+            let lstLandlineBlocks =[];
+            lstLandlineBlocks.push(this.state.Landline_radio_props[this.state.LandlineBlockValue - 1].label);
+            data.Telephone.LandLine["Number of Blocks"] = lstLandlineBlocks;
+            flag = true;
+        }
+
+        let lstCellPhoneProblems = [];
+        this.state.CellphoneInfo.map((elem, index) => {
+            if(elem.checked){
+                selected = true;
+                flag = true;
+                lstCellPhoneProblems.push(elem.label);
+            }
+        });
+
+        if(selected && this.state.CellphoneInfo[0].checked){
+            data.Telephone["CellPhone"] = {};
+            data.Telephone.CellPhone["CellPhone Problems"] = lstCellPhoneProblems;
+            let lstCellPhoneBlocks =[];
+            lstCellPhoneBlocks.push(this.state.Cellphone_radio_props[this.state.CellphoneBlockValue - 1].label);
+            data.Telephone.CellPhone["Number of Blocks"] = lstCellPhoneBlocks;
+            flag = true;
+        }
+
+        if(flag === false){
+            this.setState({error: true});
+            return;
+        }
+
+        eventsObj.post(data)
+            .then(() => {
+                this.props.navigation.navigate('TabNavigatorPage');
+            });
     }
 
     render(){
