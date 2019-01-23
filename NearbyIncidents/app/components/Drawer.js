@@ -46,6 +46,13 @@ class Drawer extends Component {
                             <Text style={styles.label}>SOS</Text>
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.labelWrapper}>
+                        <TouchableOpacity
+                            onPress={this.navigateToScreen('Subscribe')}
+                        >
+                            <Text style={styles.label}>Subscribe</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </View>
         );

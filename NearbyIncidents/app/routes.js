@@ -12,7 +12,9 @@ import AddIncident from './components/Screens/AddIncident';
 import IncidentDetails from './components/Screens/IncidentDetails';
 import WebViewComponent from './components/Screens/WebViewComponent';
 import SearchLocation from './components/Screens/SearchLocation';
-import SubscribeLocation from './components/Screens/SubscribeLocation';
+
+import Subscribe from './components/DrawerComponents/Subscribe';
+import SubscribeLocation from './components/DrawerComponents/SubscribeLocation';
 
 import MedicalAndTrappedQuestionnaire from './components/Screens/PatientCountQuestionnaire';
 import InjuryQuestionnaire from './components/Screens/InjuryQuestionnaire';
@@ -111,9 +113,6 @@ const IncidentsStackNavigator = StackNavigator({
     },
     WebViewPage: {
         screen: WebViewComponent
-    },
-    SubscribeLocation: {
-        screen: SubscribeLocation
     }
 },{
     navigationOptions: {
@@ -130,12 +129,45 @@ const ChatStackNavigator = StackNavigator({
     ScreenChat: {
         screen: Chat
     }
+},{
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: blue,
+            elevation: 0
+        },
+        headerTintColor: 'white'
+    }
 });
 
 // This Stack Navigator contains the flow for the SOS Screen
 const SOSStackNavigator = StackNavigator({
     ScreenSOS: {
         screen: SOS
+    }
+},{
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: blue,
+            elevation: 0
+        },
+        headerTintColor: 'white'
+    }
+});
+
+const SubscribeNavigator = StackNavigator({
+    Subscribe: {
+        screen: Subscribe
+    },
+    SubscribeLocation: {
+        screen: SubscribeLocation
+    }
+},{
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: blue,
+            elevation: 0
+        },
+        headerTintColor: 'white'
     }
 });
 
@@ -148,6 +180,9 @@ const AppDrawerNavigator = DrawerNavigator({
     },
     SOS: {
         screen: SOSStackNavigator
+    },
+    Subscribe: {
+        screen: SubscribeNavigator
     }
 },
 {
