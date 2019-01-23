@@ -50,7 +50,7 @@ class AddIncident extends Component {
                 break;
 
             case 5: 
-                this.props.navigation.navigate('TrafficQuestionnaire', {data: {type: "Traffic"}});
+                this.props.navigation.navigate('TrafficFlowPage', {data: {type: "Traffic"}});
                 break;
 
             case 6: 
@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: blue,
-        marginLeft: 20
+        marginLeft: 20,
+        marginTop: 5
     }
 });
 
