@@ -75,6 +75,8 @@ class AddIncident extends Component {
                         borderWidth={1}
                         buttonSize={14}
                         animation={true}
+                        buttonColor={blue}
+                        selectedButtonColor={blue}
                         onPress={(value) => {this.setState({value: value})}}
                     />
                     <TextInput 

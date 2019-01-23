@@ -277,6 +277,8 @@ class UtilitiesQuestionnaire extends Component {
                             {PowerOutBlockLst}
                         </View>                        
                     </View>
+                    
+                    <View style={{borderBottomColor: 'grey', borderBottomWidth: 1, marginTop: 10}}/>
 
                     <View style={styles.SubContainer}>
                         <Text style={styles.subHeader}>{"2. Water (all that apply)"}</Text>
@@ -287,6 +289,8 @@ class UtilitiesQuestionnaire extends Component {
                         </View>                        
                     </View>
 
+                    <View style={{borderBottomColor: 'grey', borderBottomWidth: 1, marginTop: 10}}/>
+
                     <View style={styles.SubContainer}>
                         <Text style={styles.subHeader}>{"3. Gas (all that apply)"}</Text>
                         {GasInfo}
@@ -295,6 +299,8 @@ class UtilitiesQuestionnaire extends Component {
                             {GasBlockLst}
                         </View>                        
                     </View>
+
+                    <View style={{borderBottomColor: 'grey', borderBottomWidth: 1, marginTop: 10}}/>
 
                     <View style={styles.SubContainer}>
                         <Text style={styles.subHeader}>{"4. Telephone (all that apply)"}</Text>
