@@ -15,19 +15,48 @@ import {
     withNavigation
 } from 'react-navigation'
 
+import Geolocation from 'react-native-geolocation-service';
+
 import blue from './../../styles/colors';
 
 class ListView extends Component {
+
+    state = {
+        latitude: null,
+        longitude: null,
+        locationAvailable: false
+    }
+
+    componentDidUpdate(){
+        if(!this.state.locationAvailable){
+            Geolocation.getCurrentPosition((position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,   
+                    locationAvailable: true
+                })
+            }, (error) => {
+                this.setState({
+                    latitude: null,
+                    longitude: null,
+                    locationAvailable: false
+                })
+            }, {enableHighAccuracy: false, timeout: 10000, maximumAge: 360000})
+        }
+    }
 
     render(){
         let RecordListt = this.props.screenProps.events.map((rec, i) => {
             return (<View style={styles.recordSeparator} key={i}>
                         <TouchableOpacity onPress={() => this.props.screenProps.navigation.navigate('IncidentDetailPage', {record: rec})}>
-                            <SingleRecord record={rec} />
+                            <SingleRecord record={rec} 
+                                    latitude={this.state.latitude}
+                                    longitude={this.state.longitude}
+                                    locationAvailable={this.state.locationAvailable}
+                            />
                         </TouchableOpacity>
                     </View>)
         });
-        // <View style={styles.recView} />
         return (
             <View style={styles.containerMain}>
                 <ScrollView style={styles.containerScrollView}>
@@ -72,9 +101,11 @@ const styles = StyleSheet.create({
         opacity: 1
     },
     recordSeparator: {
-        borderBottomColor: 'black',
-        marginBottom: 5,
-        marginTop: 5,
+        borderWidth: 1,
+        borderColor: 'darkgrey',
+        justifyContent: 'center',
+        borderRadius: 5,
+        margin: 5,
         backgroundColor: '#fff'
     }
 });

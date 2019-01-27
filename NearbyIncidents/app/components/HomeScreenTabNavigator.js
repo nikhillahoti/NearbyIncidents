@@ -81,7 +81,7 @@ class AppTabNavigator extends Component {
 
     componentDidMount(){
         // Fetch the data from Google Firebase before loading the Component
-        // this.getEventsFromFirebase();
+        this.getEventsFromFirebase();
 
         // this is to give access of the class method to the static navigation options
         this.props.navigation.setParams({handleFilter: this.ToggleModal})
@@ -98,13 +98,13 @@ class AppTabNavigator extends Component {
 
     getEventsFromFirebase = () => {
         const root_ref_db = firebaseConn.database().ref();
-        let events = root_ref_db.child('events');
+        let events = root_ref_db.child('reports');
 
         this.state.Category.map((type) => {
             events = events.orderByChild('type').equalTo(type + '');
         });
 
-        events.on('value', (snap) =>  {
+        events.once('value', (snap) =>  {
             let arrIncidents = [];
             snap.forEach((child) => {
                 arrIncidents.push(child.val());
@@ -169,10 +169,12 @@ const HomeScreenTabNavigator = TabNavigator({
 
 const styles = StyleSheet.create({
     headerTitle: {
-        fontSize: 18,
+        fontSize: 20,
         color: 'white',
-        alignSelf: 'center',
-        fontWeight: 'bold'
+        alignSelf: 'flex-start',
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif-light',
+        marginLeft: '8%'
     },
     container: {
         height: '100%',

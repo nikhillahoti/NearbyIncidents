@@ -13,7 +13,6 @@ import {
     //Button
 } from 'react-native-elements';
 
-import Button from './../UI_Components/Button';
 
 class FilterModal extends Component {
 

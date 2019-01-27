@@ -13,7 +13,6 @@ import {CheckBox} from 'react-native-elements';
 import blue from './../../styles/colors';
 
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
-import style from '../UI_Components/style';
 
 import eventsObj from './../../helper/Firebase_Events';
 
