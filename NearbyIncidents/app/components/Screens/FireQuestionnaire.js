@@ -3,10 +3,16 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    TextInput,
+    ScrollView
 } from 'react-native';
 
 import blue from '../../styles/colors';
+
+import eventsObj from './../../helper/Firebase_Events';
+
+import {CheckBox} from 'react-native-elements';
 
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
 
@@ -17,7 +23,27 @@ class FireQuestionnaire extends Component {
             {label: "2-5", value: 2},
             {label: "More than 5", value: 3}
         ],
-        value: 1
+        value: 1,
+        additionalInfo: [
+            { 
+                label: 'People trapped',
+                header: 'People trapped',
+                checked: false
+            },
+            { 
+                label: 'Building collapsed',
+                header: 'Building collapsed',
+                checked: false
+            },
+            { 
+                label: 'Hazardous Material Releases/Spilled. Chemical if known:',
+                header: 'Hazardous Material Releases/Spilled',
+                checked: false
+            }
+        ],
+        data: {},
+        error: false,
+        chemicals: ""
     }
     
     static navigationOptions = ({navigation}) => {
@@ -26,54 +52,120 @@ class FireQuestionnaire extends Component {
         }
     }
 
+    handleCheckAdditionalInfo = (index) => {
+        let lstadditionalInfo = this.state.additionalInfo;
+        lstadditionalInfo[index].checked = !lstadditionalInfo[index].checked;
+
+        this.setState({
+            additionalInfo: lstadditionalInfo,
+            error: false
+        });
+    }
+
     handlePress = () => {
         let data = this.props.navigation.state.params.data;
-        if(this.state.value == 1) data.NumberOfPeople = "1";
-        else if(this.state.value == 2) data.NumberOfPeople = "2-5";
-        else data.NumberOfPeople = "More than 5";
+        if(this.state.value == 1) data.info["primaryinfo"] = "Number Of People: 1";
+        else if(this.state.value == 2) data.info["primaryinfo"] = "Number Of People: 2-5";
+        else data.info["primaryinfo"] = "Number Of People: More than 5";
 
-        this.props.navigation.navigate('FireQuestionnaire_Step2', {data: data});
+        let additionalInfo = "";
+        this.state.additionalInfo.map((elem) => {
+            if(elem.checked){
+                additionalInfo += elem.header + ",";
+            }
+        }); 
+
+        console.log(additionalInfo);
+        if(additionalInfo !== ""){
+            additionalInfo = additionalInfo.substring(0, additionalInfo.length - 1);
+            if(this.state.chemicals !== "" && this.state.additionalInfo[2].checked){
+                additionalInfo += this.state.chemicals;
+            }
+            data.info["secondaryinfo"] = additionalInfo;
+        }
+
+        eventsObj.post(data)
+            .then(() => {
+                this.props.navigation.navigate('TabNavigatorPage');
+            });
     }
 
     render(){
+        const additionalInfoList = this.state.additionalInfo.map((option, index) => {
+            return <CheckBox 
+                        title={option.label}
+                        checked={option.checked} 
+                        key={index}
+                        size={20}
+                        onPress={() => this.handleCheckAdditionalInfo(index)}
+                        containerStyle={styles.checkboxContainer}
+                        textStyle={styles.checkBox}
+                    />
+        });
+
         return (
-            <View style={styles.container}>
-                <Text style={styles.header}>{"No of buildings on fire (Any one)"}</Text>
-                <RadioForm 
-                    style={styles.radio}
-                    radio_props={this.state.radio_props}
-                    initial={0}
-                    borderWidth={1}
-                    buttonSize={14}
-                    animation={true}
-                    buttonColor={blue}
-                    selectedButtonColor={blue}
-                    onPress={(value) => {this.setState({value: value})}}
-                />
-                <TouchableOpacity
-                    style={styles.btnContainer}      
-                    onPress={this.handlePress}    
-                >
-                    <Text style={styles.btnNext}>{"Next"}</Text>
-                </TouchableOpacity>
-            </View>
+            <ScrollView>
+                <View style={styles.container}>
+                    {this.state.error && 
+                        <Text style={styles.errorHeader}>{"Please select appropriate options!"}</Text>}
+                    <Text style={styles.header}>{"No of buildings on fire (Any one)"}</Text>
+                    <RadioForm 
+                        style={styles.radio}
+                        radio_props={this.state.radio_props}
+                        initial={0}
+                        borderWidth={1}
+                        buttonSize={14}
+                        animation={true}
+                        buttonColor={blue}
+                        selectedButtonColor={blue}
+                        onPress={(value) => {this.setState({value: value})}}
+                    />
+                    
+                    <View style={{borderBottomColor: 'grey', borderBottomWidth: 1, marginTop: 20, width: '90%'}}/>
+
+                    <Text style={styles.header}>{"Additional information (all that apply)"}</Text>
+                    <View style={styles.additionalInfoContainer}>
+                        {additionalInfoList}
+                    </View>
+                    <TextInput 
+                        placeholder="Please specify chemicals if known"
+                        style={styles.textInput}
+                        multiline={true}
+                        numberOfLines={4}
+                        onChangeText={(chemicals) => this.setState({chemicals})}
+                    />
+
+                    <TouchableOpacity
+                        style={styles.btnContainer}      
+                        onPress={this.handlePress}    
+                    >
+                        <Text style={styles.btnNext}>{"Next"}</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        margin: 20
+        alignItems: 'flex-start',
+        marginLeft: '5%'
     },
     header: {
         fontWeight: 'bold',
         fontSize: 15,
-        marginBottom: 30,
-        marginTop: 30
+        marginBottom: 15,
+        marginTop: 15
     },
     radio: {
         marginRight: 30
+    },
+    errorHeader: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        textAlign: 'center',
+        color: 'red'
     },
     btnContainer: {
         backgroundColor: blue,
@@ -81,7 +173,9 @@ const styles = StyleSheet.create({
         height: 30,
         paddingTop: 5,
         marginTop: 20,
-        textAlign: 'center'
+        marginBottom: 20,
+        textAlign: 'center',
+        alignSelf: 'center'
     },
     btnNext: {
         color: '#fff',
@@ -93,6 +187,30 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: 'bold',
         marginRight: 15
+    },
+    additionalInfoContainer: {
+        marginRight: 10,
+        marginLeft: '1%',
+        alignItems: 'flex-start'
+    },
+    textInput: {
+        height: 100,
+        width: 200,
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: blue,
+        marginLeft: '8%',
+    },
+    checkboxContainer: {
+        height: 40,
+        backgroundColor:'rgba(0,0,0, 0)',
+        borderWidth: 0,
+        margin: 0,
+        padding: 0
+    },
+    checkBox: {
+        fontSize: 12,
+        color: '#000'
     }
 });
 

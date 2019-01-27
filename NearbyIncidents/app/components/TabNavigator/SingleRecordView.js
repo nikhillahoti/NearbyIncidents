@@ -9,6 +9,10 @@ import {Text,
 import blue from './../../styles/colors';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import EntypoIcons from 'react-native-vector-icons/Entypo';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+
 
 class SingleRecordView extends Component {
 
@@ -31,6 +35,9 @@ class SingleRecordView extends Component {
     }
 
     formatDate = (date) => {
+
+        if(date === null || date === undefined) return "";
+
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
@@ -39,29 +46,78 @@ class SingleRecordView extends Component {
         minutes = minutes < 10 ? '0'+minutes : minutes;
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
-      }
+    }
 
-    render(){
-        console.log("Inside of SingleView");
-        console.log(this.props.record);
-        console.log(this.props.latitude);
-        console.log(this.props.longitude);
+    getImage = (type) => {
+        switch(type){
+            case "Medical":
+                return <MaterialIcons 
+                            size={48}
+                            name="local-hospital"
+                            color={'red'}
+                        />
+
+            case "Traffic":
+                return <EntypoIcons 
+                            size={48}
+                            name="traffic-cone"
+                            color={'orange'}
+                        />
+            
+            case "Fire":
+                return <SimpleLineIcons 
+                            size={48}
+                            name="fire"
+                            color={'orange'}
+                        />
+
+            case "Police":
+                return <Image 
+                            style={styles.imageStyle}
+                            source={require('./../../assets/images/PoliceIcon.png')}
+                        />
+
+            case "Utility":
+                return <Image 
+                            style={styles.imageStyle}
+                            source={require('./../../assets/images/UtilityIcon.png')}
+                        />
+
+            default:
+                return <FontAwesome 
+                            size={48}
+                            name="rss"
+                            color={'yellow'}
+                        />
+        }
+    }
+
+    render(){      
         
-        this.props.record.datetime = this.formatDate(new Date());
+        if(!(this.props.record.datetime == null)){
+            this.props.record.datetime = this.formatDate(new Date(this.props.record.datetime));
+        }
+        else {
+            this.props.record.datetime = this.formatDate(new Date());    
+        }
+
+        if(!(this.props.record.info.secondaryinfo == null)){
+            if(this.props.record.info.secondaryinfo.length > 30){
+                this.props.record.info.secondaryinfo = this.props.record.info.secondaryinfo.substring(0,30) + "...";
+            }
+        }
 
         if(this.props.locationAvailable){
             let incidentLocation = this.props.record.info.location;
             this.props.record.distance = this.getDistanceFromLatLonInKm(incidentLocation.latitude, incidentLocation.longitude, this.props.latitude, this.props.longitude);
         }
+
+        let image = this.getImage(this.props.record.type);
         
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.imageContainer}>
-                    <FontAwesome 
-                        size={48}
-                        name="rss"
-                        color={blue}
-                    />
+                    {image}
                 </View>
                 <View style={styles.mainContentContainer}>
                     <View style={styles.containerHeader}>
@@ -115,7 +171,7 @@ const styles = StyleSheet.create({
     },
     distance: {
         fontSize: 14,
-        color: blue,
+        color: 'darkgrey',
         textAlign: 'right',
         flex: 1,
         marginRight: '15%',
@@ -126,9 +182,10 @@ const styles = StyleSheet.create({
         margin: 0,
         marginBottom: 5
     },
-    cardWrapper: {
-        borderRadius: 15,
-        margin: 10
+    imageStyle: {
+        width: 50,
+        height: 30,
+        resizeMode: 'stretch'
     }
 });
 

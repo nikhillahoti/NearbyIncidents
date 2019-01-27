@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
+import Geolocation from 'react-native-geolocation-service';
 
 class AddIncident extends Component {
     
@@ -22,7 +23,10 @@ class AddIncident extends Component {
             {label: "Utility", value: 6},
             {label: "Others (Please Specify)", value: 7}
         ],
-        value: 1
+        value: 1,
+        latitude: null,
+        longitude: null,
+        locationAvailable: false
     }
 
     static navigationOptions = ({navigation}) => {
@@ -30,35 +34,68 @@ class AddIncident extends Component {
             headerTitle: <Text style={styles.headerTitle}>Add Incident</Text>,
         }
     }
+
+    componentDidUpdate(){
+        if(!this.state.locationAvailable){
+            Geolocation.getCurrentPosition((position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,   
+                    locationAvailable: true
+                })
+            }, (error) => {
+                this.setState({
+                    latitude: null,
+                    longitude: null,
+                    locationAvailable: false
+                })
+            }, {enableHighAccuracy: false, timeout: 10000, maximumAge: 360000})
+        }
+    }
     
     handlePress = () => {
+        let data = {};
+        data.info = {};
+        data.info.location = {};
+        data.info.location["latitude"] = this.state.latitude;
+        data.info.location["longitude"] = this.state.longitude;
+        data.info.location["postalcode"] = "95126";
+        data.datetime = (new Date()) + ""
+        ;
         switch(this.state.value){
             case 1: 
-                this.props.navigation.navigate('TrappedMedicalIncidentFlowPage', {data: {type: "Trapped"}});
+                data.type = "Trapped";
+                this.props.navigation.navigate('TrappedMedicalIncidentFlowPage', {data: data});
                 break;
 
             case 2: 
-                this.props.navigation.navigate('TrappedMedicalIncidentFlowPage', {data: {type: "Medical"}});
+                data.type = "Medical";
+                this.props.navigation.navigate('TrappedMedicalIncidentFlowPage', {data: data});
                 break;
 
             case 3: 
-                this.props.navigation.navigate('FireIncidentFlowPage', {data: {type: "Fire"}});
+                data.type = "Fire";
+                this.props.navigation.navigate('FireIncidentFlowPage', {data: data});
                 break;
 
             case 4: 
-                this.props.navigation.navigate('PoliceFlowPage', {data: {type: "Police"}});
+                data.type = "Police";
+                this.props.navigation.navigate('PoliceFlowPage', {data: data});
                 break;
 
             case 5: 
-                this.props.navigation.navigate('TrafficFlowPage', {data: {type: "Traffic"}});
+                data.type = "Traffice";
+                this.props.navigation.navigate('TrafficFlowPage', {data: data});
                 break;
 
             case 6: 
-                this.props.navigation.navigate('UtilitiesFlowPage', {data: {type: "Utility"}});
+                data.type = "Utility";
+                this.props.navigation.navigate('UtilitiesFlowPage', {data: data});
                 break;
 
             case 7: 
-                this.props.navigation.navigate('OtherQuestionnaire', {data: {type: "Other"}});
+                data.type = "Other";
+                this.props.navigation.navigate('OtherQuestionnaire', {data: data});
                 break;
         }
     }

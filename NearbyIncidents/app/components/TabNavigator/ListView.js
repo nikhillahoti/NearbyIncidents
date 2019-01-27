@@ -102,10 +102,11 @@ const styles = StyleSheet.create({
     },
     recordSeparator: {
         borderWidth: 1,
-        borderColor: 'darkgrey',
+        borderColor: 'silver',
         justifyContent: 'center',
         borderRadius: 5,
         margin: 5,
+        marginTop: 0,
         backgroundColor: '#fff'
     }
 });
