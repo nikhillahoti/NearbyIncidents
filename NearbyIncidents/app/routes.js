@@ -17,7 +17,6 @@ import Subscribe from './components/DrawerComponents/Subscribe';
 import SubscribeLocation from './components/DrawerComponents/SubscribeLocation';
 
 import MedicalAndTrappedQuestionnaire from './components/Screens/PatientCountQuestionnaire';
-import InjuryQuestionnaire from './components/Screens/InjuryQuestionnaire';
 
 import FireQuestionnaire from './components/Screens/FireQuestionnaire';
 
@@ -31,9 +30,6 @@ import Drawer from './components/Drawer';
 const TrappedMedicalIncidentFlow = StackNavigator({
     MedicalAndTrappedQuestionnaire: {
         screen: MedicalAndTrappedQuestionnaire
-    },
-    InjuryQuestionnaire: {
-        screen: InjuryQuestionnaire
     }   
 },{
     headerMode: 'none'

@@ -104,7 +104,7 @@ class AppTabNavigator extends Component {
             events = events.orderByChild('type').equalTo(type + '');
         });
 
-        events.once('value', (snap) =>  {
+        events.on('value', (snap) =>  {
             let arrIncidents = [];
             snap.forEach((child) => {
                 arrIncidents.push(child.val());
