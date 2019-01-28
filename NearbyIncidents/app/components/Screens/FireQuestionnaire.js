@@ -48,7 +48,7 @@ class FireQuestionnaire extends Component {
     
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <Text style={styles.headerTitle}>Step 1</Text>,
+            headerTitle: <Text style={styles.headerTitle}>Fire Questionnaire</Text>,
         }
     }
 
@@ -75,11 +75,10 @@ class FireQuestionnaire extends Component {
             }
         }); 
 
-        console.log(additionalInfo);
         if(additionalInfo !== ""){
             additionalInfo = additionalInfo.substring(0, additionalInfo.length - 1);
             if(this.state.chemicals !== "" && this.state.additionalInfo[2].checked){
-                additionalInfo += this.state.chemicals;
+                additionalInfo += (":" + this.state.chemicals);
             }
             data.info["secondaryinfo"] = additionalInfo;
         }
@@ -156,7 +155,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15,
         marginBottom: 15,
-        marginTop: 15
+        marginTop: 15,
+        color: blue
     },
     radio: {
         marginRight: 30

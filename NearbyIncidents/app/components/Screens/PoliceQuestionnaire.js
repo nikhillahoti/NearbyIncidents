@@ -45,7 +45,7 @@ class PoliceQuestionnaire extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: <Text style={styles.headerTitle}>Step 1</Text>,
+            headerTitle: <Text style={styles.headerTitle}>Police Questionnaire</Text>,
         }
     }
 
@@ -62,19 +62,20 @@ class PoliceQuestionnaire extends Component {
     handlePress = () => {
         let data = this.props.navigation.state.params.data;
         
-        let lstIncidents = [];
+        let lstIncidents = "";
         this.state.additionalInfo.map((elem) => {
             if(elem.checked){
-                lstIncidents.push(elem.label);
+                lstIncidents += elem.label + ",";
             }
         });
 
-        if(lstIncidents.length < 1){
+        if(lstIncidents === ""){
             this.setState({error: true});
             return;
         }
-        
-        data["Additional Information"] = lstIncidents;
+
+        lstIncidents = lstIncidents.substring(0, lstIncidents.length - 1);
+        data.info["primaryinfo"] = lstIncidents;
 
         eventsObj.post(data)
             .then(() => {
@@ -83,7 +84,6 @@ class PoliceQuestionnaire extends Component {
     }
 
     render(){
-        //this.props.navigation.state.params.data
 
         const additionalInfoList = this.state.additionalInfo.map((option, index) => {
             return <CheckBox 
@@ -120,14 +120,15 @@ class PoliceQuestionnaire extends Component {
 
 const styles= StyleSheet.create({
     container: {
-        alignItems: 'center',
-        margin: 20
+        alignItems: 'flex-start',
+        marginLeft: '5%'
     },
     header: {
         fontWeight: 'bold',
         fontSize: 15,
         marginBottom: 30,
-        marginTop: 30
+        marginTop: 30,
+        color: blue
     },
     errorHeader: {
         fontWeight: 'bold',
@@ -141,7 +142,9 @@ const styles= StyleSheet.create({
         height: 30,
         paddingTop: 5,
         marginTop: 20,
-        textAlign: 'center'
+        marginBottom: 20,
+        textAlign: 'center',
+        alignSelf: 'center'
     },
     btnNext: {
         color: '#fff',
@@ -166,8 +169,7 @@ const styles= StyleSheet.create({
         color: '#000'
     },
     additionalInfoContainer: {
-        marginRight: 10,
-        marginLeft: 10,
+        marginLeft: '5%',
         alignItems: 'flex-start'
     },
     textInput: {

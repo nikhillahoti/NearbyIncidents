@@ -101,13 +101,10 @@ const styles = StyleSheet.create({
         opacity: 1
     },
     recordSeparator: {
-        borderWidth: 1,
-        borderColor: 'silver',
         justifyContent: 'center',
-        borderRadius: 5,
-        margin: 5,
-        marginTop: 0,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        borderBottomColor: 'silver',
+        borderBottomWidth: 1
     }
 });
 

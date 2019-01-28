@@ -20,7 +20,6 @@ import MedicalAndTrappedQuestionnaire from './components/Screens/PatientCountQue
 import InjuryQuestionnaire from './components/Screens/InjuryQuestionnaire';
 
 import FireQuestionnaire from './components/Screens/FireQuestionnaire';
-import FireQuestionnaire_Step2 from './components/Screens/FireQuestionnaire_Step2';
 
 import PoliceQuestionnaire from './components/Screens/PoliceQuestionnaire';
 
@@ -43,10 +42,7 @@ const TrappedMedicalIncidentFlow = StackNavigator({
 const FireIncidentFlow = StackNavigator({
     FireQuestionnaire: {
         screen: FireQuestionnaire
-    },
-    FireQuestionnaire_Step2: {
-        screen: FireQuestionnaire_Step2
-    }   
+    }
 },{
     headerMode: 'none'
 });

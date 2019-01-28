@@ -65,29 +65,29 @@ class TrafficQuestionnaire extends Component {
     handlePress = () => {
         let data = this.props.navigation.state.params.data;
         let selected = false;
-        let NumberOfPeople = "";
 
         if(this.state.injuries.checked){    
-            if(this.state.value === 1) NumberOfPeople = "1";
-            else if(this.state.value === 2) NumberOfPeople = "2-5";
-            else NumberOfPeople = "More than 5"
+            if(this.state.value === 1) data.info["primaryinfo"] = "Injuries: Number Of People: 1";
+            else if(this.state.value === 2) data.info["primaryinfo"] = "Injuries: Number Of People: 2-5";
+            else data.info["primaryinfo"] = "Injuries: Number Of People: More than 5";
             selected = true;
         }
-        data["Number of People Injured"] = NumberOfPeople;
 
-        let lstadditionalInfo = [];
+        let lstadditionalInfo = "";
         this.state.additionalInfo.map((elem) => {
             if(elem.checked){
-                lstadditionalInfo.push(elem.label);
+                lstadditionalInfo += elem.label + ",";
                 selected = true;
             }
         });
 
         if(selected === false){
             this.setState({error: true});
+            return
         }
 
-        data["Additional Information"] = lstadditionalInfo;
+        lstadditionalInfo = lstadditionalInfo.substring(0,lstadditionalInfo.length - 1);
+        data.info["secondaryinfo"] = lstadditionalInfo;
 
         eventsObj.post(data)
             .then(() => {
@@ -159,14 +159,15 @@ class TrafficQuestionnaire extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        margin: 20
+        alignItems: 'flex-start',
+        marginLeft: '5%'
     },
     header: {
         fontWeight: 'bold',
         fontSize: 15,
         marginBottom: 30,
-        marginTop: 30
+        marginTop: 30,
+        color: blue
     },
     errorHeader: {
         fontWeight: 'bold',
@@ -180,7 +181,9 @@ const styles = StyleSheet.create({
         height: 30,
         paddingTop: 5,
         marginTop: 20,
-        textAlign: 'center'
+        marginBottom: 20,
+        textAlign: 'center',
+        alignSelf: 'center'
     },
     btnNext: {
         color: '#fff',

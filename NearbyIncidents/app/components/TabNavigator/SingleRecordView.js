@@ -109,7 +109,13 @@ class SingleRecordView extends Component {
 
         if(this.props.locationAvailable){
             let incidentLocation = this.props.record.info.location;
-            this.props.record.distance = this.getDistanceFromLatLonInKm(incidentLocation.latitude, incidentLocation.longitude, this.props.latitude, this.props.longitude);
+            let dist = this.getDistanceFromLatLonInKm(incidentLocation.latitude, incidentLocation.longitude, this.props.latitude, this.props.longitude);
+            if(isNaN(dist)){
+                this.props.record.distance = "0";    
+            }
+            else {
+                this.props.record.distance = dist;
+            }
         }
 
         let image = this.getImage(this.props.record.type);

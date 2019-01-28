@@ -128,8 +128,6 @@ class InjuryQuestionnaire extends Component {
     }
 
     render(){
-        //this.props.navigation.state.params.data
-
         const severeInjuryList = this.state.severeInjury.map((option, index) => {
             return <CheckBox 
                         title={option.label}

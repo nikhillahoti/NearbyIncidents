@@ -60,8 +60,8 @@ class AddIncident extends Component {
         data.info.location["latitude"] = this.state.latitude;
         data.info.location["longitude"] = this.state.longitude;
         data.info.location["postalcode"] = "95126";
-        data.datetime = (new Date()) + ""
-        ;
+        data.datetime = (new Date()) + "";
+        
         switch(this.state.value){
             case 1: 
                 data.type = "Trapped";
@@ -84,7 +84,7 @@ class AddIncident extends Component {
                 break;
 
             case 5: 
-                data.type = "Traffice";
+                data.type = "Traffic";
                 this.props.navigation.navigate('TrafficFlowPage', {data: data});
                 break;
 
