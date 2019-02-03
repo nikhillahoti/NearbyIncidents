@@ -11,8 +11,6 @@ import blue from '../../styles/colors';
 
 import {CheckBox} from 'react-native-elements';
 
-import eventsObj from './../../helper/Firebase_Events';
-
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
 import FireQuestionnaire from './FireQuestionnaire';
 
@@ -102,7 +100,7 @@ class MedicalAndTrappedQuestionnaire extends Component {
         let data = this.props.navigation.state.params.data;
         if(this.state.value == 1) data.info["primaryinfo"] = "Number Of People: 1";
         else if(this.state.value == 2) data.info["primaryinfo"] = "Number Of People: 2-5";
-        else data.info["primaryinfo"] = "More than 10";
+        else data.info["primaryinfo"] = "Number Of People: More than 10";
 
         let majorInjuries = "";
         this.state.severeInjury.map((elem) => {
@@ -131,10 +129,7 @@ class MedicalAndTrappedQuestionnaire extends Component {
             data.info["secondaryinfo"] = majorInjuries;
         }
 
-        eventsObj.post(data)
-            .then(() => {
-                this.props.navigation.navigate('TabNavigatorPage');
-            });
+        this.props.navigation.navigate('SearchLocationPage', {data: data});
     }
 
     render(){

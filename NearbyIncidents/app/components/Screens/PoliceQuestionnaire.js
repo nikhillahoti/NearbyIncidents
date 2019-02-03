@@ -10,8 +10,6 @@ import {
 
 import {CheckBox} from 'react-native-elements';
 
-import eventsObj from './../../helper/Firebase_Events';
-
 import blue from './../../styles/colors';
 
 class PoliceQuestionnaire extends Component {
@@ -76,11 +74,9 @@ class PoliceQuestionnaire extends Component {
 
         lstIncidents = lstIncidents.substring(0, lstIncidents.length - 1);
         data.info["primaryinfo"] = lstIncidents;
+        data.info["secondaryinfo"] = "";
 
-        eventsObj.post(data)
-            .then(() => {
-                this.props.navigation.navigate('TabNavigatorPage');
-            });
+        this.props.navigation.navigate('SearchLocationPage', {data: data});
     }
 
     render(){

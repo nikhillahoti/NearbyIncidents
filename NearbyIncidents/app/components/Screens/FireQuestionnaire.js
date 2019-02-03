@@ -10,8 +10,6 @@ import {
 
 import blue from '../../styles/colors';
 
-import eventsObj from './../../helper/Firebase_Events';
-
 import {CheckBox} from 'react-native-elements';
 
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
@@ -83,10 +81,7 @@ class FireQuestionnaire extends Component {
             data.info["secondaryinfo"] = additionalInfo;
         }
 
-        eventsObj.post(data)
-            .then(() => {
-                this.props.navigation.navigate('TabNavigatorPage');
-            });
+        this.props.navigation.navigate('SearchLocationPage', {data: data});
     }
 
     render(){

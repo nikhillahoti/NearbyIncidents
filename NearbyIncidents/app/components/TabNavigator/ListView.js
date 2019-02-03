@@ -24,7 +24,8 @@ class ListView extends Component {
     state = {
         latitude: null,
         longitude: null,
-        locationAvailable: false
+        locationAvailable: false,
+        checkCount: 0
     }
 
     componentDidUpdate(){
@@ -41,7 +42,7 @@ class ListView extends Component {
                     longitude: null,
                     locationAvailable: false
                 })
-            }, {enableHighAccuracy: false, timeout: 10000, maximumAge: 360000})
+            }, {enableHighAccuracy: true, timeout: 10000, maximumAge: 360000})
         }
     }
 

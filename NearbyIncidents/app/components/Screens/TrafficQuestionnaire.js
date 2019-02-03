@@ -8,8 +8,6 @@ import {
     ScrollView
 } from 'react-native';
 
-import {CheckBox} from 'react-native-elements';
-
 import blue from './../../styles/colors';
 
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
@@ -89,10 +87,7 @@ class TrafficQuestionnaire extends Component {
         lstadditionalInfo = lstadditionalInfo.substring(0,lstadditionalInfo.length - 1);
         data.info["secondaryinfo"] = lstadditionalInfo;
 
-        eventsObj.post(data)
-            .then(() => {
-                this.props.navigation.navigate('TabNavigatorPage');
-            });
+        this.props.navigation.navigate('SearchLocationPage', {data: data});
     }
 
     render(){

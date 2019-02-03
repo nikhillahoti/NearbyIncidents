@@ -14,8 +14,6 @@ import blue from './../../styles/colors';
 
 import RadioForm, {RadioButton, RadioButtonLabel, RadioButtonInput} from 'react-native-simple-radio-button';
 
-import eventsObj from './../../helper/Firebase_Events';
-
 class UtilitiesQuestionnaire extends Component {
 
     state = {
@@ -245,10 +243,7 @@ class UtilitiesQuestionnaire extends Component {
             return;
         }
 
-        eventsObj.post(data)
-            .then(() => {
-                this.props.navigation.navigate('TabNavigatorPage');
-            });
+        this.props.navigation.navigate('SearchLocationPage', {data: data});
     }
 
     render(){

@@ -38,6 +38,7 @@ class SingleRecordView extends Component {
 
         if(date === null || date === undefined) return "";
 
+        date = new Date(date);
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
@@ -101,10 +102,8 @@ class SingleRecordView extends Component {
             this.props.record.datetime = this.formatDate(new Date());    
         }
 
-        if(!(this.props.record.info.secondaryinfo == null)){
-            if(this.props.record.info.secondaryinfo.length > 30){
-                this.props.record.info.secondaryinfo = this.props.record.info.secondaryinfo.substring(0,30) + "...";
-            }
+        if(!(this.props.record.info.secondaryinfo == null) && this.props.record.info.secondaryinfo.length > 30){
+            this.props.record.info.secondaryinfo = this.props.record.info.secondaryinfo.substring(0,30) + "...";
         }
 
         if(this.props.locationAvailable){
@@ -116,6 +115,9 @@ class SingleRecordView extends Component {
             else {
                 this.props.record.distance = dist;
             }
+        }
+        else {
+            this.props.record.distance = "-";    
         }
 
         let image = this.getImage(this.props.record.type);

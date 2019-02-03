@@ -26,6 +26,7 @@ import TrafficQuestionnaire from './components/Screens/TrafficQuestionnaire';
 import UtilitiesQuestionnaire from './components/Screens/UtilitiesQuestionnaire';
 
 import Drawer from './components/Drawer';
+import IncidentReview from './components/Screens/IncidentReview';
 
 const TrappedMedicalIncidentFlow = StackNavigator({
     MedicalAndTrappedQuestionnaire: {
@@ -85,6 +86,12 @@ const AddIncidentNavigator = StackNavigator({
     },
     UtilitiesFlowPage: {
         screen: UtilitiesFlow
+    },
+    SearchLocationPage: {
+        screen: SearchLocation
+    },
+    IncidentReviewPage: {
+        screen: IncidentReview
     }
 },{
     headerMode: 'none'
@@ -99,9 +106,6 @@ const IncidentsStackNavigator = StackNavigator({
     },
     IncidentDetailPage: {
         screen: IncidentDetails
-    },
-    SearchLocationPage: {
-        screen: SearchLocation
     },
     WebViewPage: {
         screen: WebViewComponent

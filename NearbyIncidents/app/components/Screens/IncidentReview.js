@@ -16,7 +16,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcons from 'react-native-vector-icons/Entypo';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-class IncidentDetails extends Component {
+class IncidentReview extends Component {
     
     static navigationOptions = ({navigation}) => {
         return {
@@ -68,10 +68,20 @@ class IncidentDetails extends Component {
         }
     }
 
-    render() {
-        let value = this.props.navigation.state.params.record;
-        const icon = this.getImage(value.type);
+    handlePress = () => {
+        let data = this.props.navigation.state.params.data;
+        eventsObj.post(data)
+            .then(() => {
+                this.props.navigation.navigate('TabNavigatorPage');
+            });
+    }
 
+    render() {
+        let value = this.props.navigation.state.params.data;
+        console.log("Inside the Incident Review page --->");
+        console.log(value);
+
+        const icon = this.getImage(value.type);
         return (
             <View style={styles.container}>
                 <View style={{ marginTop: 40 }}/>
@@ -88,6 +98,13 @@ class IncidentDetails extends Component {
 
                 <Text style={styles.lbl}>{"Location"}</Text>
                 <Text style={styles.details}>{value.info.location.detailed.formatted_address}</Text>
+
+                <TouchableOpacity
+                    style={styles.btnContainer}      
+                    onPress={this.handlePress}    
+                >
+                    <Text style={styles.btnSubmit}>{"Submit"}</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -121,6 +138,20 @@ const styles = StyleSheet.create({
         color: '#606060',
         margin: 10
     },
+    btnContainer: {
+        backgroundColor: blue,
+        width: 100,
+        height: 30,
+        paddingTop: 5,
+        marginTop: 20,
+        marginBottom: 20,
+        textAlign: 'center',
+        alignSelf: 'center'
+    },
+    btnSubmit: {
+        color: '#fff',
+        textAlign: 'center'
+    },
     lbl: {
         fontWeight: 'bold',
         fontSize: 16,
@@ -128,4 +159,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default IncidentDetails;
+export default IncidentReview;
