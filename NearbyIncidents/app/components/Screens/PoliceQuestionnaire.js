@@ -76,7 +76,8 @@ class PoliceQuestionnaire extends Component {
         data.info["primaryinfo"] = lstIncidents;
         data.info["secondaryinfo"] = "";
 
-        this.props.navigation.navigate('SearchLocationPage', {data: data});
+        //this.props.navigation.navigate('SearchLocationPage', {data: data});
+        this.props.navigation.navigate('IncidentReviewPage', {data: data});
     }
 
     render(){

@@ -9,5 +9,3 @@ eventsObj.post = (incident) => {
 }
 
 export default eventsObj;
-
-
