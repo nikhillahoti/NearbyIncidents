@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 
 import blue from './../../styles/colors';
@@ -70,9 +71,30 @@ class IncidentDetails extends Component {
 
     render() {
         let value = this.props.navigation.state.params.record;
+        console.log("Inside the details page ---> ");
+        console.log(this.props.navigation.state.params.record);
+        const lstattachments = this.props.navigation.state.params.record.Attachments;
+        
+        let attachments = null;
+        if(lstattachments){
+            attachments = lstattachments.map((elem) => {
+                return (
+                <View>
+                    <Image 
+                        source={{uri: elem + ""}}
+                        style={{height: 60, width: 80, marginLeft: 10, marginRight: 10}}
+                    />
+                </View>);
+            });
+        }
+
+        console.log("Attachments as follows");
+        console.log(attachments);
+
         const icon = this.getImage(value.type);
 
         return (
+            <ScrollView>
             <View style={styles.container}>
                 <View style={{ marginTop: 40 }}/>
                 {icon}
@@ -88,7 +110,18 @@ class IncidentDetails extends Component {
 
                 <Text style={styles.lbl}>{"Location"}</Text>
                 <Text style={styles.details}>{value.info.location.detailed.formatted_address}</Text>
+
+                <View style={{borderBottomColor: 'grey', borderBottomWidth: 1, marginTop: 20, marginBottom: 10, width: '90%'}}/>
+
+                <Text style={styles.lbl}>{"Attachments"}</Text>
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                >
+                    {attachments}
+                </ScrollView>
             </View>
+            </ScrollView>
         );
     }
 }
